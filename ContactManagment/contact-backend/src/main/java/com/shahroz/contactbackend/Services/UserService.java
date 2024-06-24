@@ -1,6 +1,7 @@
 package com.shahroz.contactbackend.Services;
 
 import com.shahroz.contactbackend.Entities.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.shahroz.contactbackend.Repository.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService implements UserServiceInterface{
 
 
@@ -56,9 +58,9 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         existinguser.setAddress(user.getAddress());
 
-existinguser.setEmail(user.getEmail());
+         existinguser.setEmail(user.getEmail());
 
-return userrepository.save(existinguser);
+         return userrepository.save(existinguser);
 
 
 
@@ -84,7 +86,7 @@ return userrepository.save(existinguser);
         }
 
 
-
+        log.error("Cant delete the user.");
         throw new RuntimeException("Failed to delete user after multiple retries.");
     }
 
