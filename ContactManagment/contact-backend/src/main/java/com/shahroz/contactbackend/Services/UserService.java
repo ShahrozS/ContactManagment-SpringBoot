@@ -49,12 +49,12 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 
         User existinguser = userrepository.findById(id).orElseThrow(()->new RuntimeException("Entity not found"));
-        existinguser.setPhone_number(user.getPhone_number());
+        existinguser.setPhoneNumber(user.getPhoneNumber());
 
 
-        existinguser.setFirst_name(user.getFirst_name());
+        existinguser.setFirstName(user.getFirstName());
 
-        existinguser.setLast_name(user.getLast_name());
+        existinguser.setLastName(user.getLastName());
 
         existinguser.setAddress(user.getAddress());
 

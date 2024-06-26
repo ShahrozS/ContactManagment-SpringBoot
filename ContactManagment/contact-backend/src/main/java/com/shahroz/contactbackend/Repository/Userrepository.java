@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,6 +18,13 @@ public interface Userrepository extends JpaRepository<User,Long> {
     public Long findIdByEmail(@Param("email") String email);
 
     public Optional<User> findByEmail(String email);
+    public Optional<User> findByAddress(String address);
+
+    public List<User> findByFirstName(String firstNname);
+
+    public List<User> findByLastName(String lastName);
+    public Optional<User> findByPhoneNumber(String phoneNumber);
+
 
     @Modifying
     @Query("Delete from User u where u.user_id = :id ")
