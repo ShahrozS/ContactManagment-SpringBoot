@@ -86,3 +86,51 @@
 .-rotate-360 {
     @apply rotate-[-360deg];
 }
+
+
+/* Custom transition for display */
+@keyframes fadeIn {
+    from {
+        display: none;
+        opacity: 0;
+    }
+
+    to {
+        display: flex;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        display: flex;
+        opacity: 1;
+    }
+
+    to {
+        display: none;
+        opacity: 0;
+    }
+}
+
+.hidden-nav {
+    animation: fadeOut 1s forwards;
+}
+
+.visible-nav {
+    animation: fadeIn 1s forwards;
+}
+
+/* Add this to your CSS file */
+.card-container {
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+}
+
+.card-container:hover {
+    box-shadow:
+        0 0 20px 5px rgba(66, 38, 102, 0.5),
+        0 0 40px 15px rgba(66, 38, 102, 0.3),
+        0 0 60px 25px rgba(66, 38, 102, 0.2),
+        0 0 80px 35px rgba(66, 38, 102, 0.1);
+}
