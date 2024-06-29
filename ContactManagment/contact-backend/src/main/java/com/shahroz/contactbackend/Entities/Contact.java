@@ -4,9 +4,9 @@
     import jakarta.persistence.*;
     import lombok.*;
 
-    @Table(name = "contacts")
-    @Entity
+    import java.util.Set;
 
+    @Entity
     @Builder
     @AllArgsConstructor
     @Setter
@@ -24,7 +24,20 @@
 
 
         @ManyToOne
-        @JoinColumn(name = "friend_id",nullable=false)
+        @JoinColumn(name = "friend_id")
         private User friend;
+
+
+        private String firstName;
+        private String lastName;
+        private String title;
+
+        @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
+        private Set<Email> emails;
+
+        @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
+        private Set<Phone> phones;
+
+
 
     }

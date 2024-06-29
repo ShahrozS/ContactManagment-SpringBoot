@@ -31,13 +31,11 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-
     private String firstName;
     private String lastName;
     private String address;
-
-    @Column(unique = true)
     private String phoneNumber;
+    private String profilePictureId;
 
 
     @Enumerated(EnumType.STRING)
