@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Heading from "./Heading";
 import Section from "./Section";
 import { TextField, Button, IconButton, colors } from "@mui/material";
@@ -14,6 +14,12 @@ type EmailInput = {
   LabelEmail: string;
 };
 
+interface FormData {
+  firstname: string;
+  lastname: string;
+  title: string;
+}
+
 const UnregsteredUsers = () => {
   const [inputPhone, setInputphone] = useState<PhoneInput[]>([
     { PhoneNumber: "", LabelPhone: "" },
@@ -21,7 +27,11 @@ const UnregsteredUsers = () => {
   const [inputEmail, setInputemail] = useState<EmailInput[]>([
     { Email: "", LabelEmail: "" },
   ]);
-
+  const [formData, setFormData] = useState<FormData>({
+    firstname: "",
+    lastname: "",
+    title: "",
+  });
   // Add remove phone fields
   const handleAddPhone = () => {
     setInputphone([...inputPhone, { PhoneNumber: "", LabelPhone: "" }]);
@@ -56,7 +66,6 @@ const UnregsteredUsers = () => {
       [name]: value,
     };
     setInputphone(updatedValues);
-    console.log(updatedValues);
   };
 
   const handleEmailChange = (
@@ -72,11 +81,28 @@ const UnregsteredUsers = () => {
     setInputemail(updatedEmails);
   };
 
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(formData);
+    console.log(inputEmail);
+    console.log(inputPhone);
+  };
   return (
     <Section className="flex flex-col items-center">
       <Heading className="md:max-w-md lg:max-w-2xl" title="Add a Contact" />{" "}
       <div>
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="flex gap-5">
             <TextField
               className="rounded-xl  border-white mr-2"
@@ -103,8 +129,11 @@ const UnregsteredUsers = () => {
                   color: "white",
                 },
               }}
-              name="FirstName"
+              name="firstname"
               label="First Name"
+              autoComplete="off"
+              value={formData.firstname}
+              onChange={handleChange}
             />
 
             <TextField
@@ -132,7 +161,10 @@ const UnregsteredUsers = () => {
                   color: "white",
                 },
               }}
-              name="LastName"
+              autoComplete="off"
+              name="lastname"
+              onChange={handleChange}
+              value={formData.lastname}
               label="Last Name"
             />
 
@@ -161,12 +193,15 @@ const UnregsteredUsers = () => {
                   color: "white",
                 },
               }}
-              name="Title"
+              autoComplete="off"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
               label="Title"
             />
           </div>
 
-          <h6 className="mt-6 mb-6 h5">Phone Number</h6>
+          <h6 className="mt-10 mb-6 h5">Phone Number</h6>
 
           <div className="">
             {inputPhone.map((phone, index) => (
@@ -196,6 +231,7 @@ const UnregsteredUsers = () => {
                       color: "white",
                     },
                   }}
+                  autoComplete="off"
                   label="Phone number"
                   value={phone.PhoneNumber}
                   onChange={(event) => handlePhoneChange(index, event)}
@@ -226,6 +262,7 @@ const UnregsteredUsers = () => {
                       color: "white",
                     },
                   }}
+                  autoComplete="off"
                   label="Label"
                   value={phone.LabelPhone}
                   onChange={(event) => handlePhoneChange(index, event)}
@@ -285,6 +322,7 @@ const UnregsteredUsers = () => {
                       color: "white",
                     },
                   }}
+                  autoComplete="off"
                   name="Email"
                   label="Email"
                   value={email.Email}
@@ -315,6 +353,7 @@ const UnregsteredUsers = () => {
                       color: "white",
                     },
                   }}
+                  autoComplete="off"
                   name="LabelEmail"
                   label="Label"
                   value={email.LabelEmail}
