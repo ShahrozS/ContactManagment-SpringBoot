@@ -1,20 +1,16 @@
 import { benefits } from "../constants";
-import BenefitCard from "./BenefitCard";
-import Heading from "./Heading";
 import Section from "./Section";
+import UserCard from "./UserCard";
 
-const Benefits = () => {
+const RegisteredUsers = () => {
   return (
-    <Section id="features">
+    <Section>
       <div className="container relative z-2">
-        <Heading
-          className="md:max-w-md lg:max-w-2xl"
-          title="Chat Smarter, Not Harder with Brainwave"
-        />
+        <div>Search</div>
 
         <div className="flex flex-wrap gap-10 mb-10">
           {benefits.map((item) => (
-            <BenefitCard
+            <UserCard
               key={item.id}
               id={item.id}
               backgroundUrl={item.backgroundUrl}
@@ -30,4 +26,4 @@ const Benefits = () => {
   );
 };
 
-export default Benefits;
+export default RegisteredUsers;
