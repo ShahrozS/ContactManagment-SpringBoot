@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Heading from "./Heading";
 import Section from "./Section";
 import { TextField, Button, IconButton, colors } from "@mui/material";
 import { Remove, Add } from "@mui/icons-material";
 
+type PhoneInput = {
+  PhoneNumber: string;
+  LabelPhone: string;
+};
+
+type EmailInput = {
+  Email: string;
+  LabelEmail: string;
+};
+
 const UnregsteredUsers = () => {
-  const [inputPhone, setInputphone] = useState([
-    { phonenumber: "", label: "" },
+  const [inputPhone, setInputphone] = useState<PhoneInput[]>([
+    { PhoneNumber: "", LabelPhone: "" },
   ]);
-  const [inputEmail, setInputemail] = useState([{ email: "", label: "" }]);
+  const [inputEmail, setInputemail] = useState<EmailInput[]>([
+    { Email: "", LabelEmail: "" },
+  ]);
 
   // Add remove phone fields
   const handleAddPhone = () => {
-    setInputphone([...inputPhone, { phonenumber: "", label: "" }]);
+    setInputphone([...inputPhone, { PhoneNumber: "", LabelPhone: "" }]);
   };
 
   const handleRemovePhone = (index: number) => {
@@ -23,13 +35,41 @@ const UnregsteredUsers = () => {
 
   //Add remove email feilds
   const handleAddEmail = () => {
-    setInputemail([...inputEmail, { email: "", label: "" }]);
+    setInputemail([...inputEmail, { Email: "", LabelEmail: "" }]);
   };
 
   const handleRemoveEmail = (index: number) => {
     const values = [...inputEmail];
     values.splice(index, 1);
     setInputemail(values);
+  };
+
+  const handlePhoneChange = (
+    index: number,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    console.log(name + " --- " + value);
+    const updatedValues = [...inputPhone];
+    updatedValues[index] = {
+      ...updatedValues[index],
+      [name]: value,
+    };
+    setInputphone(updatedValues);
+    console.log(updatedValues);
+  };
+
+  const handleEmailChange = (
+    index: number,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    const updatedEmails = [...inputEmail];
+    updatedEmails[index] = {
+      ...updatedEmails[index],
+      [name]: value,
+    };
+    setInputemail(updatedEmails);
   };
 
   return (
@@ -69,6 +109,7 @@ const UnregsteredUsers = () => {
 
             <TextField
               className="rounded-xl"
+              variant="outlined"
               sx={{
                 "& .MuiInputBase-input": {
                   color: "white",
@@ -97,6 +138,7 @@ const UnregsteredUsers = () => {
 
             <TextField
               className="rounded-xl  mr-2"
+              variant="outlined"
               sx={{
                 "& .MuiInputBase-input": {
                   color: "white",
@@ -130,6 +172,7 @@ const UnregsteredUsers = () => {
             {inputPhone.map((phone, index) => (
               <div key={index} className="flex gap-5 mb-6">
                 <TextField
+                  variant="outlined"
                   name="PhoneNumber"
                   sx={{
                     "& .MuiInputBase-input": {
@@ -154,11 +197,13 @@ const UnregsteredUsers = () => {
                     },
                   }}
                   label="Phone number"
-                  value={phone.phonenumber}
+                  value={phone.PhoneNumber}
+                  onChange={(event) => handlePhoneChange(index, event)}
                 />
 
                 <TextField
-                  name="Label"
+                  variant="outlined"
+                  name="LabelPhone"
                   sx={{
                     "& .MuiInputBase-input": {
                       color: "white",
@@ -182,7 +227,8 @@ const UnregsteredUsers = () => {
                     },
                   }}
                   label="Label"
-                  value={phone.label}
+                  value={phone.LabelPhone}
+                  onChange={(event) => handlePhoneChange(index, event)}
                 />
                 <div className="flex">
                   {inputPhone.length > 1 ? (
@@ -216,6 +262,7 @@ const UnregsteredUsers = () => {
             {inputEmail.map((email, index) => (
               <div key={index} className="flex gap-5 mb-4">
                 <TextField
+                  variant="outlined"
                   sx={{
                     "& .MuiInputBase-input": {
                       color: "white",
@@ -240,10 +287,12 @@ const UnregsteredUsers = () => {
                   }}
                   name="Email"
                   label="Email"
-                  value={email.email}
+                  value={email.Email}
+                  onChange={(event) => handleEmailChange(index, event)}
                 />
 
                 <TextField
+                  variant="outlined"
                   sx={{
                     "& .MuiInputBase-input": {
                       color: "white",
@@ -266,12 +315,13 @@ const UnregsteredUsers = () => {
                       color: "white",
                     },
                   }}
-                  name="Label"
+                  name="LabelEmail"
                   label="Label"
-                  value={email.label}
+                  value={email.LabelEmail}
+                  onChange={(event) => handleEmailChange(index, event)}
                 />
 
-                    {/* Email */}
+                {/* Email */}
 
                 <div className="flex">
                   {inputEmail.length > 1 ? (
