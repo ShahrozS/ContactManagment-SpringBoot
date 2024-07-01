@@ -1,6 +1,7 @@
 package com.shahroz.contactbackend.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 @Entity
@@ -25,5 +26,15 @@ public class Phone {
     @Column(nullable = false)
     private String LabelPhone;
 
+
+    @JsonProperty("PhoneNumber")
+    public void setPhoneNumber(String phoneNumber) {
+        this.PhoneNumber = phoneNumber;
+    }
+
+    @JsonProperty("LabelPhone")
+    public void setLabelPhone(String labelPhone) {
+        this.LabelPhone= labelPhone;
+    }
 
 }

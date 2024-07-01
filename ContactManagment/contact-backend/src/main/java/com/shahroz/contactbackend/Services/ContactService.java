@@ -35,7 +35,7 @@ public class ContactService implements ContactServiceInterface{
             if(contact.getEmails()!=null){
                 for(Email email:contact.getEmails()){
                     email.setContact(contact);
-                }
+                }   
             }
 
             if(contact.getPhones()!=null){

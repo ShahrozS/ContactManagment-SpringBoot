@@ -36,7 +36,6 @@ public class ContactController {
     @PostMapping
     public ResponseEntity<String> createContact(@RequestBody Contact contact){
 
-        System.out.println("----------> Contact "+ contact.getFirstName());
     try{
 
 

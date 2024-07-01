@@ -39,8 +39,14 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
 
     @Override
     public User findById(Long id) {
-        return userrepository.findById(id).orElse(null);
-    }
+        try {
+            return userrepository.findById(id).orElse(null);
+        }catch(Exception e){
+            log.error("User not found? {}",e);
+            return null;
+
+        }
+        }
 
 
 

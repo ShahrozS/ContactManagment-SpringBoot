@@ -1,5 +1,6 @@
 package com.shahroz.contactbackend.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 @Entity
@@ -24,5 +25,13 @@ public class Email {
     @Column(nullable = false)
     private String LabelEmail;
 
-    // Getters and setters
+    @JsonProperty("Email")
+    public void setEmail(String email) {
+        this.Email = email;
+    }
+
+    @JsonProperty("LabelEmail")
+    public void setLabelEmail(String labelEmail) {
+        this.LabelEmail = labelEmail;
+    }
 }
