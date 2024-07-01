@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
 
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Contact> contacts;
 

@@ -3,6 +3,7 @@ import Heading from "./Heading";
 import Section from "./Section";
 import { TextField, Button, IconButton, colors } from "@mui/material";
 import { Remove, Add } from "@mui/icons-material";
+import Toast from "./Toast";
 
 type PhoneInput = {
   PhoneNumber: string;
@@ -31,6 +32,9 @@ interface FormData {
 }
 
 const UnregsteredUsers = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [error, setError] = useState(false);
+
   const [inputPhone, setInputphone] = useState<PhoneInput[]>([
     { PhoneNumber: "", LabelPhone: "" },
   ]);
@@ -72,12 +76,19 @@ const UnregsteredUsers = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
+    // Remove everything except digits
+
+    let cleanedValue = value;
+    if (name === "PhoneNumber") {
+      cleanedValue = value.replace(/\D/g, "");
+    }
     console.log(name + " --- " + value);
     const updatedValues = [...inputPhone];
     updatedValues[index] = {
       ...updatedValues[index],
-      [name]: value,
+      [name]: cleanedValue,
     };
+
     setInputphone(updatedValues);
   };
 
@@ -118,8 +129,14 @@ const UnregsteredUsers = () => {
       })
       .then((data) => setUser(data))
       .catch((e) => {
+        console.log("MASLAAAA");
         console.log(e);
       });
+
+    if (!user) {
+      console.error("User data is not loaded yet.");
+      return;
+    }
 
     const data = {
       owner: user,
@@ -138,7 +155,17 @@ const UnregsteredUsers = () => {
     })
       .then((res) => {
         console.log(res);
-        console.log(data);
+        if (res.ok) {
+          setShowToast(true);
+        }
+        setFormData({
+          firstname: "",
+          lastname: "",
+          title: "",
+        });
+        setInputemail([{ Email: "", LabelEmail: "" }]);
+
+        setInputphone([{ PhoneNumber: "", LabelPhone: "" }]);
       })
       .catch((e) => {
         console.log(e);
@@ -150,10 +177,26 @@ const UnregsteredUsers = () => {
   return (
     <Section className="flex flex-col items-center">
       <Heading className="md:max-w-md lg:max-w-2xl" title="Add a Contact" />{" "}
+      {/* Message Toast */}
+      {showToast && (
+        <Toast
+          color="successful"
+          text="Contact Saved Successfully!"
+          onClose={() => setShowToast(false)}
+        />
+      )}
+      {error && (
+        <Toast
+          color="error"
+          text="Contact Saved Successfully!"
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div>
         <form onSubmit={handleSubmit}>
           <div className="flex gap-5">
             <TextField
+              required
               className="rounded-xl  border-white mr-2"
               variant="outlined"
               sx={{
@@ -186,6 +229,7 @@ const UnregsteredUsers = () => {
             />
 
             <TextField
+              required
               className="rounded-xl"
               variant="outlined"
               sx={{
@@ -218,6 +262,7 @@ const UnregsteredUsers = () => {
             />
 
             <TextField
+              required
               className="rounded-xl  mr-2"
               variant="outlined"
               sx={{
@@ -256,8 +301,13 @@ const UnregsteredUsers = () => {
             {inputPhone.map((phone, index) => (
               <div key={index} className="flex gap-5 mb-6">
                 <TextField
+                  required
                   variant="outlined"
                   name="PhoneNumber"
+                  type="tel"
+                  inputProps={{
+                    maxLength: 11,
+                  }}
                   sx={{
                     "& .MuiInputBase-input": {
                       color: "white",
@@ -287,6 +337,7 @@ const UnregsteredUsers = () => {
                 />
 
                 <TextField
+                  required
                   variant="outlined"
                   name="LabelPhone"
                   sx={{
@@ -348,6 +399,8 @@ const UnregsteredUsers = () => {
             {inputEmail.map((email, index) => (
               <div key={index} className="flex gap-5 mb-4">
                 <TextField
+                  type="email"
+                  required
                   variant="outlined"
                   sx={{
                     "& .MuiInputBase-input": {
@@ -379,6 +432,7 @@ const UnregsteredUsers = () => {
                 />
 
                 <TextField
+                  required
                   variant="outlined"
                   sx={{
                     "& .MuiInputBase-input": {
