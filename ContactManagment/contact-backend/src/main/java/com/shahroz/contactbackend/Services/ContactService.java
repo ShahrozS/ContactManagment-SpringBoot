@@ -1,6 +1,8 @@
 package com.shahroz.contactbackend.Services;
 
 import com.shahroz.contactbackend.Entities.Contact;
+import com.shahroz.contactbackend.Entities.Email;
+import com.shahroz.contactbackend.Entities.Phone;
 import com.shahroz.contactbackend.Entities.User;
 import com.shahroz.contactbackend.Repository.Contactrepository;
 import com.shahroz.contactbackend.Repository.Userrepository;
@@ -27,9 +29,22 @@ public class ContactService implements ContactServiceInterface{
 
     @Override
     public void createContact(Contact contact) {
-
-
         try{
+            System.out.println(contact.toString());
+
+            if(contact.getEmails()!=null){
+                for(Email email:contact.getEmails()){
+                    email.setContact(contact);
+                }
+            }
+
+            if(contact.getPhones()!=null){
+
+                for(Phone phone:contact.getPhones()){
+                    phone.setContact(contact);
+                }
+            }
+
             contactrepo.save(contact);
         }catch(Exception e){
             log.error("{}",e);

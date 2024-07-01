@@ -79,7 +79,6 @@ private final AuthenticationService service;
     public User createUser(@RequestBody User user){
 
 
-        user.setUserType(1);
         return userService.createUser(user);
     }
 

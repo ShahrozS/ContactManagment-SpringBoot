@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Table(name = "users")
 @Entity
-
+@ToString
 @Builder
 @AllArgsConstructor
 @Setter
@@ -38,17 +38,13 @@ public class User implements UserDetails {
     private String profilePictureId;
 
 
-    @Enumerated(EnumType.STRING)
-    @JsonIgnore
-    private Role role;
+
 
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Contact> contacts;
 
 
-    private int userType;
-    @Version
-    private Long version;
+
     public Long getUser_id() {
         return user_id;
     }
@@ -70,12 +66,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (role != null) {
-            return List.of(new SimpleGrantedAuthority(role.name()));
-        } else {
+
             // Handle the case where role is null (e.g., provide default authority).
             return Collections.emptyList(); // or any other appropriate action
-        }
     }
     public String getPassword() {
         return password;

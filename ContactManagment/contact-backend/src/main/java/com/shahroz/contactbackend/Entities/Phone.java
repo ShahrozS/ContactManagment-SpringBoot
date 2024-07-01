@@ -3,29 +3,27 @@ package com.shahroz.contactbackend.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 @Entity
-
-@Builder
-@AllArgsConstructor
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Phone {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long phoneId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long phoneId;
 
-@ManyToOne
-@JoinColumn(name = "contactId" , nullable = false)
-private Contact contact;
+    @ManyToOne
+    @JoinColumn(name = "contact_id", nullable = false)
+    private Contact contact;
 
-@Column(nullable = false)
-private String phoneNumber;
+    @Column(nullable = false)
+    private String PhoneNumber;
 
-@Column(nullable = false)
-private String label;
+    @Column(nullable = false)
+    private String LabelPhone;
 
 
 }

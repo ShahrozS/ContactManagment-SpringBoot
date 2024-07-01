@@ -8,6 +8,16 @@ type PhoneInput = {
   PhoneNumber: string;
   LabelPhone: string;
 };
+type User = {
+  userId: number;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  phoneNumber: string;
+  profilePictureId: string;
+};
 
 type EmailInput = {
   Email: string;
@@ -32,6 +42,9 @@ const UnregsteredUsers = () => {
     lastname: "",
     title: "",
   });
+
+  const [user, setUser] = useState();
+
   // Add remove phone fields
   const handleAddPhone = () => {
     setInputphone([...inputPhone, { PhoneNumber: "", LabelPhone: "" }]);
@@ -94,10 +107,46 @@ const UnregsteredUsers = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(formData);
-    console.log(inputEmail);
-    console.log(inputPhone);
+    fetch("http://localhost:8081/user/1", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => setUser(data))
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const data = {
+      owner: user,
+      first_name: formData.firstname,
+      lastName: formData.lastname,
+      title: formData.title,
+      emails: inputEmail,
+      phones: inputPhone,
+    };
+    fetch("http://localhost:8081/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
+
+  // fetch query
+
   return (
     <Section className="flex flex-col items-center">
       <Heading className="md:max-w-md lg:max-w-2xl" title="Add a Contact" />{" "}

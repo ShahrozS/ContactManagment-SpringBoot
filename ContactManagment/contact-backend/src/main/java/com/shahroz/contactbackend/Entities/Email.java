@@ -2,34 +2,27 @@ package com.shahroz.contactbackend.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 @Entity
-
-@Builder
-@AllArgsConstructor
-@Setter
 @Getter
+@Setter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Email {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long emailID;
 
     @ManyToOne
-    @JoinColumn(name = "contactId", nullable = false)
+    @JoinColumn(name = "contact_id", nullable = false)
     private Contact contact;
 
+    @Column(nullable = false)
+    private String Email;
 
     @Column(nullable = false)
-    private String emailAddress;
+    private String LabelEmail;
 
-    @Column(nullable = false)
-    private String label;
-
-
-
-
-
+    // Getters and setters
 }

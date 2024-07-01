@@ -4,14 +4,15 @@
     import jakarta.persistence.*;
     import lombok.*;
 
+    import java.util.HashSet;
     import java.util.Set;
 
     @Entity
-    @Builder
-    @AllArgsConstructor
-    @Setter
+    @ToString
     @Getter
+    @Setter
     @NoArgsConstructor
+    @AllArgsConstructor
     public class Contact {
 
         @Id
@@ -22,11 +23,9 @@
         @JoinColumn(name = "owner_id", nullable = false)
         private User owner;
 
-
         @ManyToOne
         @JoinColumn(name = "friend_id")
         private User friend;
-
 
         private String firstName;
         private String lastName;
@@ -37,7 +36,6 @@
 
         @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Phone> phones;
-
 
 
     }
