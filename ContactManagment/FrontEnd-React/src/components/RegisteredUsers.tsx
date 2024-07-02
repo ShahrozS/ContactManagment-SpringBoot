@@ -1,12 +1,27 @@
 import { benefits } from "../constants";
 import Section from "./Section";
 import UserCard from "./UserCard";
-
+import { Search } from "@mui/icons-material";
 const RegisteredUsers = () => {
   return (
     <Section>
-      <div className="container relative z-2">
-        <div>Search</div>
+      <div className="container  relative z-2">
+        <div className="w-full flex items-center justify-center mb-6 relative ">
+          <input
+            type="text"
+            className=" rounded-full  h-10 w-[32rem] p-3 font-grotesk font-bold placeholder-n-6 text-n-6 bg-n-3 border-n-2"
+            placeholder="Search by your Friend's name"
+          />
+          <button className="absolute right-[25rem]">
+            <Search
+              sx={{
+                fontSize: "25px",
+                fontFamily: "bold",
+                color: "black",
+              }}
+            />
+          </button>
+        </div>
 
         <div className="flex flex-wrap gap-10 mb-10">
           {benefits.map((item) => (

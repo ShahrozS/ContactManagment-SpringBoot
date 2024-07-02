@@ -1,5 +1,6 @@
 package com.shahroz.contactbackend.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,6 +16,7 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long emailID;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "contact_id", nullable = false)
     private Contact contact;

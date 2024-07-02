@@ -35,7 +35,7 @@ public class ContactService implements ContactServiceInterface{
             if(contact.getEmails()!=null){
                 for(Email email:contact.getEmails()){
                     email.setContact(contact);
-                }   
+                }
             }
 
             if(contact.getPhones()!=null){
@@ -81,8 +81,9 @@ public class ContactService implements ContactServiceInterface{
     @Override
     public List<Contact> findContactsByOwnerId(Long ownerid) {
 
+        Optional<User> user = userrepo.findById(ownerid);
+       return contactrepo.findByOwner(user);
 
-        return null;
     }
 
     @Override

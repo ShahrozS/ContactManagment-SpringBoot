@@ -9,10 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/contacts")
@@ -37,8 +36,6 @@ public class ContactController {
     public ResponseEntity<String> createContact(@RequestBody Contact contact){
 
     try{
-
-
         contactService.createContact(contact);
         return ResponseEntity.ok("saved");
     }catch (Exception e){
@@ -46,6 +43,19 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Error creating contact: " + e.getMessage());
     }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Contact>> getContactsById(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.findContactsByOwnerId(id);
+            System.out.println(contacts.toArray());
+                return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
     }
 
 }

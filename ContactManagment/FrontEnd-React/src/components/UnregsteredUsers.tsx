@@ -26,8 +26,8 @@ type EmailInput = {
 };
 
 interface FormData {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   title: string;
 }
 
@@ -42,8 +42,8 @@ const UnregsteredUsers = () => {
     { Email: "", LabelEmail: "" },
   ]);
   const [formData, setFormData] = useState<FormData>({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     title: "",
   });
 
@@ -133,15 +133,10 @@ const UnregsteredUsers = () => {
         console.log(e);
       });
 
-    if (!user) {
-      console.error("User data is not loaded yet.");
-      return;
-    }
-
     const data = {
       owner: user,
-      first_name: formData.firstname,
-      lastName: formData.lastname,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       title: formData.title,
       emails: inputEmail,
       phones: inputPhone,
@@ -159,8 +154,8 @@ const UnregsteredUsers = () => {
           setShowToast(true);
         }
         setFormData({
-          firstname: "",
-          lastname: "",
+          firstName: "",
+          lastName: "",
           title: "",
         });
         setInputemail([{ Email: "", LabelEmail: "" }]);
@@ -224,7 +219,7 @@ const UnregsteredUsers = () => {
               name="firstname"
               label="First Name"
               autoComplete="off"
-              value={formData.firstname}
+              value={formData.firstName}
               onChange={handleChange}
             />
 
@@ -257,7 +252,7 @@ const UnregsteredUsers = () => {
               autoComplete="off"
               name="lastname"
               onChange={handleChange}
-              value={formData.lastname}
+              value={formData.lastName}
               label="Last Name"
             />
 

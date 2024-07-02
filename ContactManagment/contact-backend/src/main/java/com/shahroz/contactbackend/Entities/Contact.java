@@ -1,6 +1,7 @@
     package com.shahroz.contactbackend.Entities;
 
 
+    import com.fasterxml.jackson.annotation.JsonProperty;
     import jakarta.persistence.*;
     import lombok.*;
 
@@ -27,9 +28,11 @@
         @JoinColumn(name = "friend_id")
         private User friend;
 
+        @JsonProperty("firstName")
         private String firstName;
         private String lastName;
         private String title;
+
 
         @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Email> emails;
