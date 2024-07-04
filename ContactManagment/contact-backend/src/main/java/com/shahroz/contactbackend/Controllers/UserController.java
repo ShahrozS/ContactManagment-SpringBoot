@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,5 +22,12 @@ public class UserController {
     @GetMapping("/{id}")
     ResponseEntity<User> getUserById(@PathVariable Long id){
         return ResponseEntity.ok(userService.findById(id));
+    }
+
+
+    @GetMapping("/search/{name}")
+    ResponseEntity<List<User>> getUserByName(@PathVariable String name){
+        System.out.println("In Controller:  "+ name);
+        return ResponseEntity.ok(userService.findByName(name));
     }
 }

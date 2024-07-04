@@ -14,4 +14,8 @@ public interface Contactrepository extends JpaRepository<Contact,Long> {
     List<Contact> findByOwner(Optional<User> owner);
     Optional<Contact> findByFriend(Optional<User> friend);
 
+    List<Contact> findByFirstName(String firstname);
+    List<Contact> findByLastName(String lastname);
+
+
 }

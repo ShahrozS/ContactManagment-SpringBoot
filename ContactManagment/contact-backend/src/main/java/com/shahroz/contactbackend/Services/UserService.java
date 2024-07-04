@@ -10,8 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -103,4 +107,74 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
         System.out.println("EMAILL in service " + email);
         return findById(userrepository.findIdByEmail(email));
     }
+
+    @Override
+    public List<User> findByFirstName(String firstname) {
+
+        try{
+                     return userrepository.findByFirstName(firstname);
+        }catch(Exception e){
+
+            log.error("{}",e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<User> findByLastName(String lastname) {
+
+        try{
+            return userrepository.findByLastName(lastname);
+        }catch(Exception e){
+            log.error("{}",e);
+            return null;
+        }
+    }
+
+
+    public List<User> findByName(String name){
+        try{
+            System.out.println("In Controller:  "+ name);
+
+            Pattern pattern = Pattern.compile("^[a-zA-Z]+\\s[a-zA-Z]+$");
+            Matcher matcher = pattern.matcher(name);
+            List<User> users = new ArrayList<>();
+
+            if (matcher.matches()) {
+                String[] parts = name.split(" ");
+                String firstName = parts[0];
+                String lastName = parts[1];
+
+                users = findByFullName(firstName,lastName);
+            } else {
+                users = findByFirstName(name);
+                if (users == null || users.isEmpty()) {
+                    System.out.println("Searching by last name: " + name);
+                    users = findByLastName(name);
+                } else {
+                    System.out.println("Searching by first name: " + name);
+                }
+            }
+
+            if (users == null || users.isEmpty()) {
+                System.out.println("No users found for name: " + name);
+                return null;
+            }
+            return users;
+        }catch(Exception e){
+            log.error("{}",e);
+            return null;
+        }
+    }
+
+     public List<User> findByFullName(String firstname, String lastname){
+
+         try{
+             return userrepository.findByFirstNameAndLastName(firstname,lastname);
+         }catch(Exception e){
+             log.error("{}",e);
+             return null;
+         }
+     }
+
 }

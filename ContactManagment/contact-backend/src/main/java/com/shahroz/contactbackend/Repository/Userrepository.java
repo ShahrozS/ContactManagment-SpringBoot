@@ -23,8 +23,10 @@ public interface Userrepository extends JpaRepository<User,Long> {
     public List<User> findByFirstName(String firstNname);
 
     public List<User> findByLastName(String lastName);
+
     public Optional<User> findByPhoneNumber(String phoneNumber);
 
+    public List<User> findByFirstNameAndLastName(String firstname, String lastname);
 
     @Modifying
     @Query("Delete from User u where u.user_id = :id ")

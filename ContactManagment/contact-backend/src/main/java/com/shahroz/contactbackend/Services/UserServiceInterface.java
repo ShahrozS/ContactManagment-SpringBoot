@@ -14,7 +14,11 @@ public interface UserServiceInterface {
 
     User findByEmail(String email);
 
+    List<User> findByFullName(String firstname, String lastname);
 
+
+    public List<User> findByFirstName(String firstname);
+    public List<User> findByLastName(String lastname);
 
 
 }
