@@ -22,14 +22,14 @@ public class Email {
     private Contact contact;
 
     @Column(nullable = false)
-    private String Email;
+    private String email;
 
     @Column(nullable = false)
     private String LabelEmail;
 
     @JsonProperty("Email")
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
 
     @JsonProperty("LabelEmail")

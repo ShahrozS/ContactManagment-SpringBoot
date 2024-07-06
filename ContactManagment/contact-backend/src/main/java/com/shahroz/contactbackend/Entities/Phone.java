@@ -23,7 +23,7 @@ public class Phone {
     private Contact contact;
 
     @Column(nullable = false)
-    private String PhoneNumber;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String LabelPhone;
@@ -31,7 +31,7 @@ public class Phone {
 
     @JsonProperty("PhoneNumber")
     public void setPhoneNumber(String phoneNumber) {
-        this.PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     @JsonProperty("LabelPhone")

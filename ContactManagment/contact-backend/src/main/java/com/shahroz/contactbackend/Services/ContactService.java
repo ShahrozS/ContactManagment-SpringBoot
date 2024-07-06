@@ -14,6 +14,7 @@ import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -26,6 +27,12 @@ public class ContactService implements ContactServiceInterface{
     Contactrepository contactrepo;
 
 
+    @Autowired
+    EmailServices emailServices;
+
+
+    @Autowired
+    PhoneService phoneService;
 
     @Override
     public void createContact(Contact contact) {
@@ -216,5 +223,26 @@ public class ContactService implements ContactServiceInterface{
     @Override
     public void updateContact(Long id) {
 
+    }
+
+
+    public List<Contact> searchContact(String query, Long ownerId){
+        List<Contact> contact = new ArrayList<>();
+        contact = contactrepo.findByFirstName(query);
+        if(contact.isEmpty()){
+            contact = contactrepo.findByLastName(query);
+            if(contact.isEmpty()){
+                contact = phoneService.findContactByPhoneNumber(query);
+                if(contact.isEmpty()){
+                    contact = emailServices.getContactByEmail(query);
+                }
+            }
+        }
+
+        contact = contact.stream()
+                .filter(con -> con.getOwner().getUser_id().equals(ownerId))
+                .collect(Collectors.toList());
+
+        return contact;
     }
 }

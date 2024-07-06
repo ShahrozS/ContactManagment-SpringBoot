@@ -1,5 +1,6 @@
 package com.shahroz.contactbackend.Services;
 
+import com.shahroz.contactbackend.Entities.Contact;
 import com.shahroz.contactbackend.Entities.Phone;
 import com.shahroz.contactbackend.Repository.Phonerepository;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -22,8 +26,16 @@ public class PhoneService implements PhoneServiceInterface
             phonerepository.save(phone);
 
         }catch (Exception e){
-            log.error("{)",e);
+            log.error("{}",e);
         }
+    }
+
+    public List<Contact> findContactByPhoneNumber(String PhoneNumber){
+
+        List<Contact> contacts = new ArrayList<>();
+        Phone phone = phonerepository.findByPhoneNumber(PhoneNumber);
+        contacts.add(phone.getContact());
+        return  contacts;
     }
 
 

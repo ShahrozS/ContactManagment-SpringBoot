@@ -33,10 +33,11 @@
         private String lastName;
         private String title;
 
-
+        @ToString.Exclude
         @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Email> emails;
 
+        @ToString.Exclude
         @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
         private Set<Phone> phones;
 

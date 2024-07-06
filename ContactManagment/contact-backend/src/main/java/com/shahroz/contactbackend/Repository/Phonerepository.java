@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Phonerepository extends JpaRepository<Phone,Long> {
+
+    public Phone findByPhoneNumber(String phone);
+
 }

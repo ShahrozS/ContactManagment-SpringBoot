@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Emailrepository extends JpaRepository<Email,Long> {
 
-    public Contact
+
+    public  Email findByEmail(String Email);
+
 }
