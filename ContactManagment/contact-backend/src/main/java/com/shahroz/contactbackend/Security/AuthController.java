@@ -75,12 +75,6 @@ private final AuthenticationService service;
         return "Credentials Invalid";
     }
 
-    @PostMapping("/create-user")
-    public User createUser(@RequestBody User user){
-
-
-        return userService.createUser(user);
-    }
 
 
     @PostMapping("/register")
