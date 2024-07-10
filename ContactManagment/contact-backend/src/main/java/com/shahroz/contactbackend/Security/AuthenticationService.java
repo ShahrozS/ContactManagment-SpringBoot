@@ -18,10 +18,10 @@ private final PasswordEncoder passwordEncoder;
 private final JwtHelper jwtService;
 private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder().firstName(request.getFirst_name())
-                .lastName(request.getLast_name())
+        var user = User.builder().firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .address(request.getAddress())
-                .phoneNumber(request.getPhonenumber())
+                .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();

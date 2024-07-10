@@ -82,11 +82,13 @@ const RegistrationForm = () => {
       email: formData.email,
       password: formData.password,
     };
+    const token = localStorage.getItem("jwt");
 
     fetch("http://localhost:8081/user/save", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })

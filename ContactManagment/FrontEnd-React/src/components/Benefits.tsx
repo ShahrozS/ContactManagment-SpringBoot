@@ -187,14 +187,28 @@ const Benefits = () => {
     console.log(Name);
   };
 
+  const token = localStorage.getItem("jwt");
+  const username = localStorage.getItem("username");
+  console.log("tokem-->" + token);
+  console.log("username: " + username);
   useEffect(() => {
     fetch("http://localhost:8081/contacts/1", {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
-      .then((res) => res.json())
+      .then((res) => res.text()) // Change from res.json() to res.text()
       .then((data) => {
-        console.log(data);
-        //    setContacts(data);
+        console.log(data); // Log the raw response text
+        try {
+          const jsonData = JSON.parse(data); // Attempt to parse as JSON
+          console.log(jsonData);
+          // setContacts(jsonData);
+        } catch (e) {
+          console.error("Failed to parse JSON:", e);
+        }
       })
       .catch((e) => console.log(e));
   }, []);

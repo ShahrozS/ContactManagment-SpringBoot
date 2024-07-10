@@ -10,9 +10,9 @@ import lombok.*;
 @ToString
 @Data
 public class RegisterRequest {
-    private String first_name;
-    private String last_name;
-    private String phonenumber;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String address;
     private String email;
     private String password;

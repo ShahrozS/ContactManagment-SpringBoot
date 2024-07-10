@@ -117,11 +117,13 @@ const UnregsteredUsers = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const token = localStorage.getItem("jwt");
     fetch("http://localhost:8081/user/1", {
       method: "GET",
+
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
@@ -145,6 +147,7 @@ const UnregsteredUsers = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })

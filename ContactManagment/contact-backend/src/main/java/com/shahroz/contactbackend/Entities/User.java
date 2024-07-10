@@ -1,6 +1,7 @@
 package com.shahroz.contactbackend.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,9 +32,12 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    @JsonProperty("firstname")
     private String firstName;
+    @JsonProperty("lastname")
     private String lastName;
     private String address;
+    @JsonProperty("phonenumber")
     private String phoneNumber;
     private String profilePictureId;
 

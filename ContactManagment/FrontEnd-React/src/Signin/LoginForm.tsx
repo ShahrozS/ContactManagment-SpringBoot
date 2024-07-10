@@ -10,12 +10,12 @@ interface FormData {
 }
 
 const LoginForm = () => {
+  localStorage.setItem("jwt", "");
+  localStorage.setItem("username", "");
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate(); // Initialize the useNavigate hook inside the component
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,6 +27,7 @@ const LoginForm = () => {
     });
   };
 
+  const navigate = useNavigate();
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -34,22 +35,27 @@ const LoginForm = () => {
       email: formData.email,
       password: formData.password,
     };
+    const token = localStorage.getItem("jwt");
 
-    fetch("http://localhost:8081/contacts", {
+    fetch("http://localhost:8081/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })
       .then((res) => {
         console.log(res);
         if (res.ok) {
-          setFormData({
-            email: "",
-            password: "",
-          });
+          return res.json();
         }
+      })
+      .then((data) => {
+        localStorage.setItem("jwt", data.jwtToken);
+        localStorage.setItem("username", data.username);
+
+        navigate("/home");
       })
       .catch((e) => {
         console.log(e);
@@ -60,10 +66,8 @@ const LoginForm = () => {
     navigate("/register"); // Navigate to the registration page
   };
 
-
   return (
     <div className="flex justify-center items-center">
-
       <form
         onSubmit={handleSubmit}
         className="bg-n-2 gap-4 border-n-1 rounded-xl flex flex-col items-center justify-center w-[32rem] h-[22rem] p-10"

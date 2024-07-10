@@ -36,7 +36,7 @@ return userrepository.findAll();
 
     public User createUser(User user){
 user.setPassword(passwordEncoder.encode(user.getPassword()));
-
+        System.out.println(user.getPassword());
         return userrepository.save(user);
     }
 

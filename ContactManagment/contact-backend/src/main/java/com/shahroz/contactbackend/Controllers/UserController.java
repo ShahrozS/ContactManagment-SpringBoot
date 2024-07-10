@@ -32,8 +32,7 @@ public class UserController {
             return userService.findByEmail(principal.getName());
         }catch(Exception e){
             log.error("Exception in controller, save user {}" , e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
+return null;
         }
     }
 

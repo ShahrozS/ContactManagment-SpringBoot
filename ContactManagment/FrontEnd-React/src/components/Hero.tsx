@@ -5,10 +5,27 @@ import Button from "./Button";
 import { BottomLine, Gradient, BackgroundCircles } from "./design/Hero";
 import { heroIcons } from "../constants";
 import { ScrollParallax } from "react-just-parallax";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
 const Hero = () => {
+  const token = localStorage.getItem("jwt");
+  useEffect(() => {
+    fetch("http://localhost:8081/current-user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        //    setContacts(data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   const parallaxRef = useRef(null);
 
   return (
