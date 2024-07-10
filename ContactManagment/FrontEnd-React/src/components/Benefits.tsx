@@ -4,6 +4,7 @@ import BenefitCard from "./BenefitCard";
 import Heading from "./Heading";
 import Section from "./Section";
 import Pagination from "./Pagination";
+import { Search } from "@mui/icons-material";
 
 const Contacts = [
   {
@@ -179,6 +180,13 @@ const Benefits = () => {
   const firstPostIndex = lastPostIndex - postPerPage;
   const currentPosts = Contacts.slice(firstPostIndex, lastPostIndex);
 
+  const [Name, setName] = useState("");
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(Name);
+  };
+
   useEffect(() => {
     fetch("http://localhost:8081/contacts/1", {
       method: "GET",
@@ -198,6 +206,27 @@ const Benefits = () => {
           className="md:max-w-md lg:max-w-2xl"
           title="All Your Contacts"
         />
+
+        <form
+          onSubmit={handleSubmit}
+          className="w-full flex items-center justify-center mb-6 relative "
+        >
+          <input
+            type="text"
+            className=" rounded-full  h-10 w-[32rem] p-3 font-grotesk font-bold placeholder-n-6 text-n-6 bg-n-3 border-n-2"
+            placeholder="Search..."
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button className="absolute right-[25rem]">
+            <Search
+              sx={{
+                fontSize: "25px",
+                fontFamily: "bold",
+                color: "black",
+              }}
+            />
+          </button>
+        </form>
 
         <div className="flex flex-wrap gap-10 mb-10">
           {currentPosts.map((item) => (

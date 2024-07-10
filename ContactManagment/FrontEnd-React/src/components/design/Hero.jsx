@@ -43,7 +43,8 @@ export const BackgroundCircles = ({ parallaxRef }) => {
   }, []);
 
   return (
-    <div className="absolute -top-[42.375rem] left-1/2 w-[78rem] aspect-square border border-n-2/5 rounded-full -translate-x-1/2 md:-top-[38.5rem] xl:-top-[32rem]">
+    // TODO: if the home page gets werid, check here ( remove z-0 and )
+    <div className="absolute  pointer-events-none  -top-[42.375rem] left-1/2 w-[78rem] aspect-square border border-n-2/5 rounded-full -translate-x-1/2 md:-top-[38.5rem] xl:-top-[32rem] z-0">
       <Rings />
 
       {/* Moving background colored circle balls */}
