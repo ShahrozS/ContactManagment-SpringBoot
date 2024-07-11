@@ -2,13 +2,10 @@ package com.shahroz.contactbackend.Security;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
-@Data
 public class RegisterRequest {
     private String firstName;
     private String lastName;
