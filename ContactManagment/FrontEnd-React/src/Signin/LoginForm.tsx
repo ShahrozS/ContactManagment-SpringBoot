@@ -55,7 +55,7 @@ const LoginForm = () => {
         localStorage.setItem("jwt", data.jwtToken);
         localStorage.setItem("username", data.username);
 
-        navigate("/home");
+        navigate("/");
       })
       .catch((e) => {
         console.log(e);

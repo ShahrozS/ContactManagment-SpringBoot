@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -23,10 +24,10 @@ import java.util.Arrays;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+//
+//    @Autowired
+//    private JwtAuthenticationEntryPoint point;
 
-
-    @Autowired
-    private JwtAuthenticationEntryPoint point;
     @Autowired
     private JwtAuthenticationFilter  filter;
 
@@ -39,39 +40,75 @@ public class SecurityConfig {
     @Autowired
     private final DaoAuthenticationProvider authenticationProvider;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//
+////        http.csrf(csrf -> csrf.disable())
+////                .cors(cors -> cors.configurationSource(request -> {
+////                    CorsConfiguration config = new CorsConfiguration();
+////                    config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Add your frontend's URL
+////                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+////                    config.setAllowedHeaders(Arrays.asList("*"));
+////                    return config;
+////                }))
+////                .authorizeRequests().
+////                requestMatchers("/ac").authenticated().requestMatchers("/auth/**").permitAll()
+////                .anyRequest()
+////                .authenticated()
+////                .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+////                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+////        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+//
 //        http.csrf(csrf -> csrf.disable())
-//                .cors(cors -> cors.configurationSource(request -> {
-//                    CorsConfiguration config = new CorsConfiguration();
-//                    config.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Add your frontend's URL
-//                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//                    config.setAllowedHeaders(Arrays.asList("*"));
-//                    return config;
-//                }))
-//                .authorizeRequests().
-//                requestMatchers("/ac").authenticated().requestMatchers("/auth/**").permitAll()
+//                .authorizeRequests()
+//                .requestMatchers("/auth/**")
+//                .permitAll()
+//                .requestMatchers("/user/**")
+//                .permitAll()
+//                .requestMatchers("/contacts/**")
+//                .permitAll()
 //                .anyRequest()
 //                .authenticated()
-//                .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+//                .and()
+////                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+//            ;
+//        return http.build();
+//    }
+//
 
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    config.setAllowedHeaders(Arrays.asList("*"));
+                    return config;
+                }))
                 .authorizeRequests()
-                .requestMatchers("/auth/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("/contacts/**").permitAll()
+                .requestMatchers("/current-user").permitAll()
+                .requestMatchers("/error").permitAll() // Allow access to /error without authentication
+                .anyRequest().authenticated()
                 .and()
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-            ;
+                .exceptionHandling(e -> e.authenticationEntryPoint(new Http403ForbiddenEntryPoint()) )
+                ; // Handle 403 Forbidden responses
+
         return http.build();
     }
+
+
+
+
+
 
 }
 

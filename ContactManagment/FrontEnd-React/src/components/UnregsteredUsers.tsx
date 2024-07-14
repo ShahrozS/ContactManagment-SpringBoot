@@ -4,6 +4,7 @@ import Section from "./Section";
 import { TextField, Button, IconButton, colors } from "@mui/material";
 import { Remove, Add } from "@mui/icons-material";
 import Toast from "./Toast";
+import { generateUserId } from "./generateUserId";
 
 type PhoneInput = {
   PhoneNumber: string;
@@ -118,7 +119,8 @@ const UnregsteredUsers = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = localStorage.getItem("jwt");
-    fetch("http://localhost:8081/user/1", {
+    const fetchedid = generateUserId();
+    fetch(`http://localhost:8081/user/${fetchedid}`, {
       method: "GET",
 
       headers: {

@@ -25,6 +25,12 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
+
+    @GetMapping("/find/{email}")
+    ResponseEntity<User> findByEmail(@PathVariable String email){
+        return ResponseEntity.ok(userService.findByEmail(email));
+    }
+
     @GetMapping("/current-user")
     public User getCurrentUser(Principal principal){
 

@@ -11,7 +11,7 @@ import Notification from "./Notification";
 const Hero = () => {
   const token = localStorage.getItem("jwt");
   useEffect(() => {
-    fetch("http://localhost:8081/current-user", {
+    fetch("http://localhost:8081/user/current-user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
