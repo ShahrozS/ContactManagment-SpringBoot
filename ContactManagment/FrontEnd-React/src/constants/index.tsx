@@ -39,18 +39,18 @@ import {
 export const navigation = [
   {
     id: "0",
-    title: "Features",
-    url: "#features",
+    title: "All Contacts",
+    url: "#AllContacts",
   },
   {
     id: "1",
-    title: "Pricing",
-    url: "#pricing",
+    title: "Add A Contact",
+    url: "#UnregisteredUsers",
   },
   {
     id: "2",
-    title: "How to use",
-    url: "#how-to-use",
+    title: "Add a Friend",
+    url: "#RegisteredUsers",
   },
   {
     id: "3",

@@ -54,7 +54,7 @@ public class ContactService implements ContactServiceInterface{
 
             contactrepo.save(contact);
         }catch(Exception e){
-            log.error("{}",e);
+            log.error("createContact{}",e);
         }
 
     }
@@ -66,7 +66,7 @@ public class ContactService implements ContactServiceInterface{
             return contacts;
         }
         catch (Exception e){
-            log.error("{}",e);
+            log.error("allContacts{}",e);
         }
         return null;
     }

@@ -1,10 +1,11 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Heading from "./Heading";
 import Section from "./Section";
 import { TextField, Button, IconButton, colors } from "@mui/material";
 import { Remove, Add } from "@mui/icons-material";
 import Toast from "./Toast";
 import { generateUserId } from "./generateUserId";
+import { redirect, useNavigate } from "react-router";
 
 type PhoneInput = {
   PhoneNumber: string;
@@ -116,10 +117,14 @@ const UnregsteredUsers = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const token = localStorage.getItem("jwt");
-    const fetchedid = generateUserId();
+  // FETCHING USER
+  const fetchedid = generateUserId();
+  
+  
+  console.log(fetchedid);
+  const token = localStorage.getItem("jwt");
+  
+  useEffect(()=>{
     fetch(`http://localhost:8081/user/${fetchedid}`, {
       method: "GET",
 
@@ -131,11 +136,25 @@ const UnregsteredUsers = () => {
       .then((res) => {
         return res.json();
       })
-      .then((data) => setUser(data))
+      .then((data) =>
+        
+        {
+          console.log("--->" + data);
+          setUser(data)
+
+
+        }).then((resp)=>{
+            console.log(resp);
+        })
       .catch((e) => {
         console.log("MASLAAAA");
         console.log(e);
       });
+  },[]); 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+
 
     const data = {
       owner: user,
@@ -145,6 +164,7 @@ const UnregsteredUsers = () => {
       emails: inputEmail,
       phones: inputPhone,
     };
+    console.log("USER IS HERE?==> " + user);
     fetch("http://localhost:8081/contacts", {
       method: "POST",
       headers: {
@@ -157,6 +177,7 @@ const UnregsteredUsers = () => {
         console.log(res);
         if (res.ok) {
           setShowToast(true);
+
         }
         setFormData({
           firstName: "",
@@ -166,6 +187,10 @@ const UnregsteredUsers = () => {
         setInputemail([{ Email: "", LabelEmail: "" }]);
 
         setInputphone([{ PhoneNumber: "", LabelPhone: "" }]);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((e) => {
         console.log(e);
@@ -175,7 +200,7 @@ const UnregsteredUsers = () => {
   // fetch query
 
   return (
-    <Section className="flex flex-col items-center">
+    <Section id="UnregisteredUsers" className="flex flex-col items-center">
       <Heading className="md:max-w-md lg:max-w-2xl" title="Add a Contact" />{" "}
       {/* Message Toast */}
       {showToast && (
@@ -221,7 +246,7 @@ const UnregsteredUsers = () => {
                   color: "white",
                 },
               }}
-              name="firstname"
+              name="firstName"
               label="First Name"
               autoComplete="off"
               value={formData.firstName}
@@ -255,7 +280,7 @@ const UnregsteredUsers = () => {
                 },
               }}
               autoComplete="off"
-              name="lastname"
+              name="lastName"
               onChange={handleChange}
               value={formData.lastName}
               label="Last Name"

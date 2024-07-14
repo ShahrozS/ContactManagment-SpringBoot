@@ -11,7 +11,7 @@ const RegisteredUsers = () => {
     console.log(Name);
   };
   return (
-    <Section>
+    <Section id="RegisteredUsers">
       <div className="container  relative z-2">
         <form
           onSubmit={handleSubmit}

@@ -5,6 +5,7 @@ import "./index.css";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Registration from "./Signin/Registration.tsx";
 import Login from "./Signin/Login.tsx";
+import Benefits from "./components/Benefits.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/" element={<App />} />
+        
       </Routes>
     </Router>
   </React.StrictMode>
