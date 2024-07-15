@@ -20,6 +20,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("/find/all-users")
+    ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userService.getUsers());
+    }
+
+
     @GetMapping("/{id}")
     ResponseEntity<User> getUserById(@PathVariable Long id){
         return ResponseEntity.ok(userService.findById(id));

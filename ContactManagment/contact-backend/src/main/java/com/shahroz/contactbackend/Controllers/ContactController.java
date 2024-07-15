@@ -71,4 +71,22 @@ public class ContactController {
         }
     }
 
+
+
+    @PostMapping("/addFriend")
+    public ResponseEntity<Contact> addFriendContact(@RequestBody Contact contact){
+    try{
+
+        return ResponseEntity.ok(contactService.saveFriendContact(contact));
+
+
+    }catch (Exception e){
+        log.error("Error adding friend contacts for id {}: {}", contact, e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+    }
+    }
+
+
+
 }

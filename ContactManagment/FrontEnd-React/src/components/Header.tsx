@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { brainwave } from "../assets";
 import { navigation } from "../constants";
@@ -10,6 +10,19 @@ import { useState } from "react";
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
+
+
+
+  const navigate = useNavigate();
+
+  const logout = () =>{
+    localStorage.setItem("jwt","");
+    localStorage.setItem("username","");
+    navigate("/login");
+
+  }
+
+
 
   const toggleNavigation = () => {
     if (openNavigation) {
@@ -67,12 +80,12 @@ const Header = () => {
         </nav>
 
         <a
-          href="#signup"
+          onClick={logout}
           className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
         >
-          New account
+        Logout
         </a>
-        <Button className="hidden lg:flex" href="#login">
+        <Button className="hidden lg:flex" href="/register">
           Sign in
         </Button>
 

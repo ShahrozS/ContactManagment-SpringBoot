@@ -90,11 +90,13 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ id, Contact }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="relative rounded-lg   bg-n-7 z-2 flex flex-col min-h-[22rem] p-[2.4rem] pointer-events-none">
+      <p className="body-2 mb-6 text-n-3">{Contact?.title}</p>
+
         <h5 className="h5 mb-5">
           {Contact?.firstName}
+          &nbsp;
           {Contact?.lastName}
         </h5>
-        <p className="body-2 mb-6 text-n-3">{Contact?.title}</p>
 
         <p className="body-2  text-n-3">{"Emails"}</p>
 

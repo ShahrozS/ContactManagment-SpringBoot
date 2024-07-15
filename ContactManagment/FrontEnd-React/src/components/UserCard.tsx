@@ -2,22 +2,25 @@ import React, { useState, CSSProperties } from "react";
 import Arrow from "../assets/svg/Arrow";
 import { GradientLight } from "./design/Benefits";
 
+
+interface User{
+  user_id:string ,
+  email:string ,
+  password:string,
+  address:string ,
+  firstname:string ,
+  lastname:string ,
+  phonenumber:string
+
+}
+
 interface UserCardProps {
-  id: string;
-  backgroundUrl: string;
-  iconUrl: string;
-  title: string;
-  text: string;
-  light?: boolean;
+  key: number;
+  user?: User;
 }
 
 const UserCard: React.FC<UserCardProps> = ({
-  id,
-  backgroundUrl,
-  iconUrl,
-  title,
-  text,
-  light,
+  user,
 }) => {
   const [tiltStyle, setTiltStyle] = useState<CSSProperties>({});
 
@@ -47,28 +50,61 @@ const UserCard: React.FC<UserCardProps> = ({
     });
   };
 
+
+
+  const [LoggedIn, setLoggedIn] = useState();
+
+
+  const handleAddFriend = () =>{
+
+    const data = {
+
+      owner:LoggedIn,
+      friend:user,
+      firstName:user?.firstname,
+      lastName:user?.lastname,
+      title:"Mr/Ms",
+      emails: [{Email: user?.email, label:"Personal"}],
+      phones:[{PhoneNumber:user?.phonenumber,label:"Personal"}],
+
+    }
+
+
+  }
+
+
+
   return (
     <div
       className="block rounded-lg bg-n-2 relative p-0.5 bg-no-repeat bg-[length:100%_100%] md:max-w-[24rem] card-container"
       style={{
         ...tiltStyle,
-        backgroundImage: `url(${backgroundUrl})`,
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <div className="relative rounded-lg   bg-n-7 z-2 flex flex-col min-h-[22rem] p-[2.4rem] pointer-events-none">
-        <h5 className="h5 mb-5">{title}</h5>
-        <p className="body-2 mb-6 text-n-3">{text}</p>
+
+<h5 className="h5 mb-5">
+  {user?.firstname}
+  &nbsp;
+  {user?.lastname}
+</h5>
+
+
+<p className="body-2 mb-6 text-n-3">{user?.address}</p>
+<p className="body-2 mb-6 text-n-3">{user?.phonenumber}</p>
+
+
+
         <div className="flex items-center mt-auto">
-          <button className="bg-n-3 px-2 py-2 pl-5 pr-5 rounded-xl ml-auto font-code text-lg font-extrabold pointer-events-auto text-n-7 uppercase tracking-wider">
+          <button onClick={handleAddFriend} className="bg-n-3 px-2 py-2 pl-5 pr-5 rounded-xl ml-auto font-code text-lg font-extrabold pointer-events-auto text-n-7 uppercase tracking-wider">
             Add Friend
           </button>
           
         </div>
       </div>
 
-      {light && <GradientLight />}
 
       <div
         className="absolute rounded-lg inset-0.5 bg-n-8"

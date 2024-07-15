@@ -1,15 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { benefits } from "../constants";
 import Section from "./Section";
 import UserCard from "./UserCard";
 import { Search } from "@mui/icons-material";
+import { generateUserId } from "./generateUserId";
+
+interface UserProps{
+
+
+  user_id:string ,
+  email:string ,
+  password:string,
+  address:string ,
+  firstname:string ,
+  lastname:string ,
+  phonenumber:string
+
+}
+
+
 const RegisteredUsers = () => {
   const [Name, setName] = useState("");
-
+  const [users, setUsers] = useState<UserProps[]>([]);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(Name);
   };
+
+
+
+
+  const token = localStorage.getItem("jwt");
+  const fetchedid = generateUserId();
+  console.log("+++"+fetchedid)
+  useEffect(() => {
+    fetch(`http://localhost:8081/user/find/all-users`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.json()) 
+      .then((data) => {
+        if (Array.isArray(data)) {
+          console.log(data);
+          setUsers(data);
+        } else {
+          console.error("Expected an array but gots:", data);
+        }
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
+
   return (
     <Section id="RegisteredUsers">
       <div className="container  relative z-2">
@@ -35,16 +79,13 @@ const RegisteredUsers = () => {
         </form>
 
         <div className="flex flex-wrap gap-10 mb-10">
-          {benefits.map((item) => (
-            <UserCard
-              key={item.id}
-              id={item.id}
-              backgroundUrl={item.backgroundUrl}
-              iconUrl={item.iconUrl}
-              title={item.title}
-              text={item.text}
-              light={item.light}
-            />
+          {users.map((item,index) => (
+          item.user_id!=fetchedid? <UserCard
+          key={index}
+          user={item}
+        />  : ""
+          
+
           ))}
         </div>
       </div>

@@ -245,4 +245,16 @@ public class ContactService implements ContactServiceInterface{
 
         return contact;
     }
+
+
+    public Contact saveFriendContact(Contact contact){
+        try {
+            Contact contact1 = contactrepo.save(contact);
+            return contact1;
+        }
+        catch (Exception e){
+            log.error("Exception in save friend contact service {}",e);
+            return null;
+        }
+    }
 }

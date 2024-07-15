@@ -10,21 +10,21 @@ import Generating from "./Generating";
 import Notification from "./Notification";
 const Hero = () => {
   const token = localStorage.getItem("jwt");
-  useEffect(() => {
-    fetch("http://localhost:8081/user/current-user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        //    setContacts(data);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8081/user/current-user", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       //    setContacts(data);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, []);
 
   const parallaxRef = useRef(null);
 
