@@ -18,6 +18,7 @@ const Header = () => {
   const logout = () =>{
     localStorage.setItem("jwt","");
     localStorage.setItem("username","");
+    localStorage.setItem("id","");
     navigate("/login");
 
   }

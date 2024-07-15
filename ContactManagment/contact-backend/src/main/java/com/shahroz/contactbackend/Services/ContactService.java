@@ -249,12 +249,31 @@ public class ContactService implements ContactServiceInterface{
 
     public Contact saveFriendContact(Contact contact){
         try {
-            Contact contact1 = contactrepo.save(contact);
-            return contact1;
+            if(contact.getEmails()!=null){
+                for(Email email:contact.getEmails()){
+                    email.setContact(contact);
+                }
+            }
+
+            if(contact.getPhones()!=null){
+
+                for(Phone phone:contact.getPhones()){
+                    phone.setContact(contact);
+                }
+            }
+            contactrepo.save(contact);
+            System.out.println("in service  + " + contact.toString());
+            return contact;
         }
         catch (Exception e){
             log.error("Exception in save friend contact service {}",e);
             return null;
         }
+    }
+
+
+
+    public Optional<Contact> findByFriendAndOwner(Long ownerid , Long friendid){
+        return contactrepo.findByFriendAndOwner(ownerid,friendid);
     }
 }

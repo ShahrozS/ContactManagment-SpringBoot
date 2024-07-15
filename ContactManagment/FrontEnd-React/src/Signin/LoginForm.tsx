@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { BackgroundCircles } from "../components/design/Hero";
 import "../index.css";
+import { generateUserId } from "../components/generateUserId";
 
 interface FormData {
   email: string;
@@ -12,6 +13,7 @@ interface FormData {
 const LoginForm = () => {
   localStorage.setItem("jwt", "");
   localStorage.setItem("username", "");
+  localStorage.setItem("id","");
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",

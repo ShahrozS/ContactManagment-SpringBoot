@@ -8,8 +8,12 @@ import { ScrollParallax } from "react-just-parallax";
 import { useEffect, useRef } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
+import { generateUserId } from "./generateUserId";
 const Hero = () => {
   const token = localStorage.getItem("jwt");
+  localStorage.setItem("id",generateUserId());
+  console.log("Setting up id : " , localStorage.getItem("id")); 
+
   // useEffect(() => {
   //   fetch("http://localhost:8081/user/current-user", {
   //     method: "GET",

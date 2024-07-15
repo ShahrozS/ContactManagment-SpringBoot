@@ -6,8 +6,6 @@ import { Search } from "@mui/icons-material";
 import { generateUserId } from "./generateUserId";
 
 interface UserProps{
-
-
   user_id:string ,
   email:string ,
   password:string,

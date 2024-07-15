@@ -25,7 +25,7 @@
         private User owner;
 
         @ManyToOne
-        @JoinColumn(name = "friend_id")
+        @JoinColumn(name = "friend_id", unique=false)
         private User friend;
 
         @JsonProperty("firstName")

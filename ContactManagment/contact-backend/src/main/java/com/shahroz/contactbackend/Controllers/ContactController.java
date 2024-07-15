@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/contacts")
@@ -48,6 +50,7 @@ public class ContactController {
     @GetMapping("/{id}")
     public ResponseEntity<List<Contact>> getContactsById(@PathVariable Long id){
         try{
+            System.out.println("Generating for id: " + id);
             List<Contact> contacts = contactService.findContactsByOwnerId(id);
             System.out.println(contacts.toArray());
                 return ResponseEntity.ok(contacts);
@@ -76,7 +79,7 @@ public class ContactController {
     @PostMapping("/addFriend")
     public ResponseEntity<Contact> addFriendContact(@RequestBody Contact contact){
     try{
-
+        System.out.println(contact.toString());
         return ResponseEntity.ok(contactService.saveFriendContact(contact));
 
 
@@ -87,6 +90,14 @@ public class ContactController {
     }
     }
 
+
+    @PostMapping("/findByOwnerAndFriend")
+    public ResponseEntity<Optional<Contact>> findByOwnerAndFriend(@RequestBody Map<String, Long> body) {
+        Long ownerId = body.get("owner_id");
+        Long friendId = body.get("friend_id");
+        Optional<Contact> contact = contactService.findByFriendAndOwner(ownerId, friendId);
+        return ResponseEntity.ok(contact);
+    }
 
 
 }

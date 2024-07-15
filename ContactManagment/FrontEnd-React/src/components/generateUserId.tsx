@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function generateUserId() {
-  const [userId, setUserId] = useState<string>("1");
+  const [userId, setUserId] = useState<string>("-");
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("jwt");
 

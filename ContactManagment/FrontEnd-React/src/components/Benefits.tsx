@@ -213,28 +213,37 @@ const Benefits = () => {
   console.log("tokem-->" + token);
   console.log("username: " + username);
   const id = generateUserId();
-  console.log("generated id" + id);
-  useEffect(() => {
-    fetch(`http://localhost:8081/contacts/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.text())
-      .then((data) => {
-        console.log(data);
-        try {
-          const jsonData = JSON.parse(data);
-          console.log(jsonData);
-          setContacts(jsonData);
-        } catch (e) {
-          console.error("Failed to parse JSON:", e);
-        }
+  console.log("generated id-->" + id);
+  
+    useEffect(() => {
+
+  if(id!="-"){
+
+      fetch(`http://localhost:8081/contacts/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((e) => console.log(e));
-  }, []);
+        .then((res) => res.text())
+        .then((data) => {
+          console.log(data);
+          try {
+            const jsonData = JSON.parse(data);
+            console.log(jsonData);
+            setContacts(jsonData);
+          } catch (e) {
+            console.error("Failed to parse JSON:", e);
+          }
+        })
+        .catch((e) => console.log(e));
+  
+      }
+      }, [id,token]);
+  
+  
+ 
 
   return (
     <Section id="AllContacts">
