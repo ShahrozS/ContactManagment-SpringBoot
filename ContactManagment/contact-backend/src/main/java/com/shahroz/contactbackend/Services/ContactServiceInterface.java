@@ -27,7 +27,7 @@ public interface ContactServiceInterface {
 
     List<Contact> findContactByOwnerId(Long ownerid);
 
-    public void deleteContact(Long id);
+    public void deleteContact(Contact contact);
     public Contact updateContact(Long contactId,Contact contact);
 
 

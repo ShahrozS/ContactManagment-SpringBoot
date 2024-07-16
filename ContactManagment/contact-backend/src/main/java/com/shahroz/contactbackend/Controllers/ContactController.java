@@ -38,7 +38,9 @@ public class ContactController {
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact){
 
     try{
+        System.out.println("##### IN CONTROLLER: " + contact.getEmails().toString());
         Contact contact1 = contactService.createContact(contact);
+
         return ResponseEntity.ok(contact1);
     }catch (Exception e){
         log.error("In Controller: {}",e);
@@ -104,6 +106,20 @@ public class ContactController {
         try{
 
             return ResponseEntity.ok(contactService.updateContact(contact.getContact_id(), contact));
+
+        }catch (Exception e){
+            log.error("In Controller update Contact: {}",e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @DeleteMapping("/deleteContact")
+    public ResponseEntity<String> deleteContact(@RequestBody Contact contact){
+        try{
+
+            contactService.deleteContact(contact);
+            return ResponseEntity.ok("Deleted succesfully");
 
         }catch (Exception e){
             log.error("In Controller update Contact: {}",e);

@@ -1,6 +1,7 @@
 package com.shahroz.contactbackend.Services;
 
 import com.shahroz.contactbackend.Entities.Contact;
+import com.shahroz.contactbackend.Entities.Email;
 import com.shahroz.contactbackend.Entities.Phone;
 import com.shahroz.contactbackend.Repository.Phonerepository;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,10 @@ public class PhoneService implements PhoneServiceInterface
         Phone phone = phonerepository.findByPhoneNumber(PhoneNumber);
         contacts.add(phone.getContact());
         return  contacts;
+    }
+
+    public void deletePhone(Phone phone){
+        phonerepository.delete(phone);
     }
 
 

@@ -139,7 +139,7 @@ const UnregsteredUsers = () => {
       .then((data) =>
         
         {
-          console.log("--->" + data);
+          console.log("--->" + JSON.stringify(data));
           setUser(data)
 
 
@@ -150,7 +150,7 @@ const UnregsteredUsers = () => {
         console.log("MASLAAAA");
         console.log(e);
       });
-  },[]); 
+  },[token,fetchedid]); 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -164,7 +164,8 @@ const UnregsteredUsers = () => {
       emails: inputEmail,
       phones: inputPhone,
     };
-    console.log("USER IS HERE?==> " + user);
+    console.log("USER IS HERE?==> " + JSON.stringify(user));
+    console.log("Data looks smth like this rn : " + JSON.stringify(data));
     fetch("http://localhost:8081/contacts", {
       method: "POST",
       headers: {
@@ -177,7 +178,6 @@ const UnregsteredUsers = () => {
         console.log(res);
         if (res.ok) {
           setShowToast(true);
-          console.log("Saving contact ---->" + formData + inputEmail + inputPhone);
 
         }
         setFormData({
@@ -188,10 +188,12 @@ const UnregsteredUsers = () => {
         setInputemail([{ Email: "", LabelEmail: "" }]);
 
         setInputphone([{ PhoneNumber: "", LabelPhone: "" }]);
-
+        return res.json();
         setTimeout(() => {
           window.location.reload();
         }, 3000);
+      }).then((data)=>{
+        console.log("THis is the saved data----> "+JSON.stringify(data));
       })
       .catch((e) => {
         console.log(e);

@@ -33,6 +33,9 @@ public class EmailServices implements EmailServiceInterface{
     }
 
 
+    public void deleteEmail(Email email){
+        emailrepository.delete(email);
+    }
 
 
     public List<Contact> getContactByEmail(String email){

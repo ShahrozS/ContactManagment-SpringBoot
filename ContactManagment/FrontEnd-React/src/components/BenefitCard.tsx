@@ -2,9 +2,11 @@ import { useState, CSSProperties, useEffect, FormEvent } from "react";
 import Arrow from "../assets/svg/Arrow";
 import { GradientLight } from "./design/Benefits";
 import { light } from "@mui/material/styles/createPalette";
-import { ArrowLeft, ArrowRight, SwipeLeft } from "@mui/icons-material";
+import { ArrowLeft, ArrowRight, DeleteForeverRounded, DeleteForeverSharp } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { json } from "react-router";
+
+import "./Pagination.css"
 
 interface BenefitCardProps {
   id: number;
@@ -143,7 +145,28 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ id, Contact }) => {
   
 
   }
-  
+
+
+
+  const handleDelete = () =>{
+    fetch("http://localhost:8081/contacts/deleteContact",{
+      method:"DELETE",
+      headers:{
+        "Content-type" : "application/json",
+        "Authorization":`${token}`
+      },
+      body:JSON.stringify(contact),
+    }).then((res)=>{
+      if(res.ok){
+        return res.text();
+      }
+    }).then((data)=>{
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      console.log("Card deleted!!" + data);
+    }).catch((error)=>{console.log(error)});
+  }  
   const openEdit = ()=>{
 
     setEditForm(false);
@@ -162,7 +185,32 @@ style={{
 onMouseMove={handleMouseMove}
 onMouseLeave={handleMouseLeave}
 >
+
+
+
+
 <div className="relative rounded-lg   bg-n-7 z-2 flex flex-col min-h-[22rem] p-[2.4rem] pointer-events-none">
+
+<IconButton 
+   className=" absolute pointer-events-auto "
+  onClick={handleDelete}
+   sx={{ padding: 0, margin: 0 }}
+>
+<DeleteForeverSharp className="glow-icon  absolute left-[300px] bottom-[00px] "
+ sx={{
+  fontSize: "32px",
+  color: "#d64f4f",
+  display: "block",
+  padding:0,
+  margin:0,
+}}
+
+
+
+/>
+
+</IconButton>
+
 <p className="body-2 mb-6 text-n-3">{contact?.title}</p>
 
   <h5 className="h5 mb-5">

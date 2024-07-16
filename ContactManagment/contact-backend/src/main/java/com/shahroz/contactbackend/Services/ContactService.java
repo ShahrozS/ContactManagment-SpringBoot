@@ -40,21 +40,43 @@ public class ContactService implements ContactServiceInterface{
     public Contact createContact(Contact contact) {
         try{
             System.out.println(contact.toString());
+            Contact contact1 = new Contact();
+            contact1.setTitle(contact.getTitle());
+            contact1.setFirstName(contact.getFirstName());
+            contact1.setLastName(contact.getLastName());
+
+            User user = contact.getOwner();
+            contact1.setOwner(user);
+
+
+
+            contact1 = contactrepo.save(contact1);
+
+            System.out.println("SAVING CONTACT BEFORE EMAIL WAGHERA ::::::"+contact1.toString());
+            System.out.println("_____"+contact.toString());
+
 
             if(contact.getEmails()!=null){
                 for(Email email:contact.getEmails()){
-                    email.setContact(contact);
-                }
+                    email.setContact(contact1);
+                    emailServices.saveEmail(email);
+                    }
             }
 
             if(contact.getPhones()!=null){
 
                 for(Phone phone:contact.getPhones()){
-                    phone.setContact(contact);
+                    phone.setContact(contact1);
+                    phoneService.savePhone(phone);
                 }
             }
 
-            Contact contact1 = contactrepo.save(contact);
+            System.out.println("########inservice : + in contact " + contact.getEmails().toString());
+            contact1.setEmails(contact.getEmails());
+            contact1.setPhones(contact.getPhones());
+            System.out.println("########inservice : + in contact1 " + contact1.getEmails().toString());
+
+
             return contact1;
         }catch(Exception e){
             log.error("createContact{}",e);
@@ -220,7 +242,23 @@ public class ContactService implements ContactServiceInterface{
     }
 
     @Override
-    public void deleteContact(Long id) {
+    public void deleteContact(Contact contact) {
+        try{
+
+            for(Email email:contact.getEmails()){
+                emailServices.deleteEmail(email);
+            }
+            for(Phone phone:contact.getPhones()){
+                phoneService.deletePhone(phone);
+            }
+            contact.getPhones().clear();
+contact.getEmails().clear();
+
+            contactrepo.delete(contact);
+
+        }catch (Exception e){
+            log.error("In delete service: {} " , e);
+        }
 
     }
 
@@ -252,8 +290,9 @@ public class ContactService implements ContactServiceInterface{
 
     private void updateEmails(Contact contact, Set<Email> updatedEmails) {
         // Clear existing emails
-        contact.getEmails().clear();
-
+if(contact.getEmails()!=null) {
+    contact.getEmails().clear();
+}
         // Update or add new emails
         if (updatedEmails != null) {
             for (Email updatedEmail : updatedEmails) {
@@ -265,8 +304,9 @@ public class ContactService implements ContactServiceInterface{
 
     private void updatePhones(Contact contact, Set<Phone> updatedPhones) {
         // Clear existing phones
-        contact.getPhones().clear();
-
+        if(contact.getEmails()!=null) {
+            contact.getPhones().clear();
+        }
         // Update or add new phones
         if (updatedPhones != null) {
             for (Phone updatedPhone : updatedPhones) {
