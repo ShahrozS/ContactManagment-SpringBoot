@@ -35,15 +35,14 @@ public class ContactController {
     ContactService contactService;
 
     @PostMapping
-    public ResponseEntity<String> createContact(@RequestBody Contact contact){
+    public ResponseEntity<Contact> createContact(@RequestBody Contact contact){
 
     try{
-        contactService.createContact(contact);
-        return ResponseEntity.ok("saved");
+        Contact contact1 = contactService.createContact(contact);
+        return ResponseEntity.ok(contact1);
     }catch (Exception e){
         log.error("In Controller: {}",e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error creating contact: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
     }
 
@@ -98,6 +97,20 @@ public class ContactController {
         Optional<Contact> contact = contactService.findByFriendAndOwner(ownerId, friendId);
         return ResponseEntity.ok(contact);
     }
+
+
+    @PutMapping("/updateContact")
+    public ResponseEntity<Contact> updateContact(@RequestBody Contact contact){
+        try{
+
+            return ResponseEntity.ok(contactService.updateContact(contact.getContact_id(), contact));
+
+        }catch (Exception e){
+            log.error("In Controller update Contact: {}",e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
 
 }

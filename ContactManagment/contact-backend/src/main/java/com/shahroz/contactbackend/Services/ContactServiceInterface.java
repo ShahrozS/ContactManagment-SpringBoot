@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ContactServiceInterface {
 
-    public void createContact(Contact contact);
+    public Contact createContact(Contact contact);
     public List<Contact> allContacts();
     public Contact findContactById(Long id);
 
@@ -28,7 +28,7 @@ public interface ContactServiceInterface {
     List<Contact> findContactByOwnerId(Long ownerid);
 
     public void deleteContact(Long id);
-    public void updateContact(Long id);
+    public Contact updateContact(Long contactId,Contact contact);
 
 
 

@@ -177,6 +177,7 @@ const UnregsteredUsers = () => {
         console.log(res);
         if (res.ok) {
           setShowToast(true);
+          console.log("Saving contact ---->" + formData + inputEmail + inputPhone);
 
         }
         setFormData({
@@ -190,7 +191,7 @@ const UnregsteredUsers = () => {
 
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 3000);
       })
       .catch((e) => {
         console.log(e);

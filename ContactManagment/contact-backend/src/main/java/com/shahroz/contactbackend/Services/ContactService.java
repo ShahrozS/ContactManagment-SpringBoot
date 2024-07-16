@@ -6,6 +6,7 @@ import com.shahroz.contactbackend.Entities.Phone;
 import com.shahroz.contactbackend.Entities.User;
 import com.shahroz.contactbackend.Repository.Contactrepository;
 import com.shahroz.contactbackend.Repository.Userrepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +37,7 @@ public class ContactService implements ContactServiceInterface{
     PhoneService phoneService;
 
     @Override
-    public void createContact(Contact contact) {
+    public Contact createContact(Contact contact) {
         try{
             System.out.println(contact.toString());
 
@@ -52,9 +54,11 @@ public class ContactService implements ContactServiceInterface{
                 }
             }
 
-            contactrepo.save(contact);
+            Contact contact1 = contactrepo.save(contact);
+            return contact1;
         }catch(Exception e){
             log.error("createContact{}",e);
+            return  null;
         }
 
     }
@@ -221,10 +225,56 @@ public class ContactService implements ContactServiceInterface{
     }
 
     @Override
-    public void updateContact(Long id) {
+    public Contact updateContact(Long contactId, Contact updatedContact) {
+        try {
+            // Fetch the existing contact from the database
+            Contact existingContact = contactrepo.findById(contactId)
+                    .orElseThrow(() -> new EntityNotFoundException("Contact not found with id: " + contactId));
 
+            // Update fields of the existing contact with the new values
+            existingContact.setTitle(updatedContact.getTitle());
+            existingContact.setFirstName(updatedContact.getFirstName());
+            existingContact.setLastName(updatedContact.getLastName());
+
+            // Update emails
+            updateEmails(existingContact, updatedContact.getEmails());
+
+            // Update phones
+            updatePhones(existingContact, updatedContact.getPhones());
+
+            // Save the updated contact
+            return contactrepo.save(existingContact);
+        } catch (Exception e) {
+            log.error("Error updating contact with id {}: {}", contactId, e.getMessage());
+            throw e; // You might want to handle or wrap this exception appropriately
+        }
     }
 
+    private void updateEmails(Contact contact, Set<Email> updatedEmails) {
+        // Clear existing emails
+        contact.getEmails().clear();
+
+        // Update or add new emails
+        if (updatedEmails != null) {
+            for (Email updatedEmail : updatedEmails) {
+                updatedEmail.setContact(contact); // Set the reference to the updated contact
+                contact.getEmails().add(updatedEmail);
+            }
+        }
+    }
+
+    private void updatePhones(Contact contact, Set<Phone> updatedPhones) {
+        // Clear existing phones
+        contact.getPhones().clear();
+
+        // Update or add new phones
+        if (updatedPhones != null) {
+            for (Phone updatedPhone : updatedPhones) {
+                updatedPhone.setContact(contact); // Set the reference to the updated contact
+                contact.getPhones().add(updatedPhone);
+            }
+        }
+    }
 
     public List<Contact> searchContact(String query, Long ownerId){
         List<Contact> contact = new ArrayList<>();

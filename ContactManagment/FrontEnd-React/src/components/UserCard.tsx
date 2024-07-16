@@ -1,7 +1,8 @@
-import React, { useState, CSSProperties, useEffect } from "react";
+import React, { useState, CSSProperties, useEffect, FormEvent } from "react";
 import Arrow from "../assets/svg/Arrow";
 import { GradientLight } from "./design/Benefits";
 
+import "./Pagination.css"
 
 interface User{
   user_id:string ,
