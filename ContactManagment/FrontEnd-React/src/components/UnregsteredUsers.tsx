@@ -201,7 +201,6 @@ const UnregsteredUsers = () => {
       });
   };
 
-  // fetch query
 
   return (
     <Section id="UnregisteredUsers" className="flex flex-col items-center">

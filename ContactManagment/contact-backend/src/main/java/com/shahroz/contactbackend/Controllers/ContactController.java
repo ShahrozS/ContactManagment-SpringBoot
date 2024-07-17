@@ -133,6 +133,87 @@ public class ContactController {
         }
     }
 
+    // Filtering
+
+
+    @GetMapping("/sortFirstNameAsc/{id}")
+    public ResponseEntity<List<Contact>> sortByFirstNameAsc(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.sortByFirstNameAsc(id);
+            return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
+
+
+    @GetMapping("/sortLastNameAsc/{id}")
+    public ResponseEntity<List<Contact>> sortByLastNameAsc(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.sortByLastNameAsc(id);
+            return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
+
+    @GetMapping("/sortTitleAsc/{id}")
+    public ResponseEntity<List<Contact>> sortByTitleAsc(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.sortByTitleAsc(id);
+            return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
+
+    @GetMapping("/sortFirstNameDesc/{id}")
+    public ResponseEntity<List<Contact>> sortByFirstNameDesc(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.sortByFirstNameDesc(id);
+            return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
+    @GetMapping("/sortLastNameDesc/{id}")
+    public ResponseEntity<List<Contact>> sortByLastNameDesc(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.sortByLastNameDesc(id);
+            return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
+    @GetMapping("/sortTitleDesc/{id}")
+    public ResponseEntity<List<Contact>> sortByTitleDesc(@PathVariable Long id){
+        try{
+            List<Contact> contacts = contactService.sortByTitleDesc(id);
+            return ResponseEntity.ok(contacts);
+        }catch (Exception e){
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
+
+
 
 
 }

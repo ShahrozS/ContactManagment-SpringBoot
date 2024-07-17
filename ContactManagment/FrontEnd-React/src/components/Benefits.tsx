@@ -4,8 +4,9 @@ import BenefitCard from "./BenefitCard";
 import Heading from "./Heading";
 import Section from "./Section";
 import Pagination from "./Pagination";
-import { Search } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, Search } from "@mui/icons-material";
 import { generateUserId } from "./generateUserId";
+import { Button, ButtonGroup, IconButton } from "@mui/material";
 // const Contacts = [
 //   {
 //     contact_id: 1,
@@ -49,6 +50,8 @@ const Benefits = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(6);
   const [name, setName] = useState("");
+  const [SortValue, setSortValue] = useState("");
+  const [AscDesc, setAscDesc] = useState("");
 
   const token = localStorage.getItem("jwt");
   const username = localStorage.getItem("username");
@@ -88,9 +91,30 @@ const Benefits = () => {
     }
   };
 
+
+
+  //Filter and sorting
+
+
+  
+  const handleAscSort = () =>{
+    fetchContacts(`http://localhost:8081/contacts/sort${SortValue}Asc/${id}`);
+  }
+
+  const handleDescSort = ()=>{
+    fetchContacts(`http://localhost:8081/contacts/sort${SortValue}Desc/${id}`);
+  }
+
+
+
+ 
+ 
+ 
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
   const currentPosts = contacts.slice(firstPostIndex, lastPostIndex);
+
+
   return (
     <Section id="AllContacts">
       <div className="container relative z-2">
@@ -122,6 +146,44 @@ const Benefits = () => {
           </div>
           <p className="font-mono  mr-64 text-n-3 text-xs mt-2">Search nothing to show all contacts.</p>
         </form>
+
+        <div className=" flex justify-end flex-row gap-5">
+        <ButtonGroup sx={{
+  '& .MuiButtonGroup-grouped': {
+    backgroundColor: "#504580",
+    color: "#ffffff",
+    borderColor: "#504580",
+    '&:hover': {
+      backgroundColor: "#332c52",
+      borderColor: "#332c52",
+    },
+  },
+}} variant="contained">
+  <Button onClick={() => setSortValue("FirstName")}>First Name</Button>
+  <Button onClick={() => setSortValue("LastName")}>Last Name</Button>
+  <Button onClick={() => setSortValue("Title")}>Title</Button>
+</ButtonGroup>
+
+<ButtonGroup sx={{
+  '& .MuiButtonGroup-grouped': {
+    backgroundColor: "#504580",
+    color: "#ffffff",
+    borderColor: "#504580",
+    '&:hover': {
+      backgroundColor:"#332c52",
+      borderColor: "#332c52",
+    },
+  },
+}} variant="contained">
+  <Button onClick={handleAscSort}>
+    <ArrowUpward />
+  </Button>
+  <Button onClick={handleDescSort}>
+    <ArrowDownward />
+  </Button>
+</ButtonGroup>
+
+        </div>
 
         <div className="flex flex-wrap gap-10 mb-10 mt-10">
           {currentPosts.map((item) => (

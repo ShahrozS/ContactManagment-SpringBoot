@@ -22,5 +22,11 @@ public interface Contactrepository extends JpaRepository<Contact,Long> {
     @Query("SELECT c FROM Contact c WHERE  c.owner.user_id = :ownerId AND c.friend.user_id = :friendId")
     Optional<Contact> findByFriendAndOwner(@Param("ownerId") Long ownerId, @Param("friendId") Long friendId);
 
+    List<Contact> findByOwnerOrderByFirstNameAsc(Optional<User> owner);
+    List<Contact> findByOwnerOrderByLastNameAsc(Optional<User> owner);
+    List<Contact> findByOwnerOrderByTitleAsc(Optional<User> owner);
+    List<Contact> findByOwnerOrderByLastNameDesc(Optional<User> owner);
+    List<Contact> findByOwnerOrderByFirstNameDesc(Optional<User> owner);
+    List<Contact> findByOwnerOrderByTitleDesc(Optional<User> owner);
 
 }

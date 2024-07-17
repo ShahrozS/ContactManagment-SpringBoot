@@ -373,4 +373,42 @@ return null;
     public Optional<Contact> findByFriendAndOwner(Long ownerid , Long friendid){
         return contactrepo.findByFriendAndOwner(ownerid,friendid);
     }
+
+
+  public   List<Contact> sortByFirstNameAsc(Long owner_id){
+
+        Optional<User> user = userrepo.findById(owner_id);
+        return contactrepo.findByOwnerOrderByFirstNameAsc(user);
+    }
+
+    public List<Contact> sortByLastNameAsc(Long owner_id){
+
+        Optional<User> user = userrepo.findById(owner_id);
+        return contactrepo.findByOwnerOrderByLastNameAsc(user);
+    }
+
+    public List<Contact> sortByTitleAsc(Long owner_id){
+
+        Optional<User> user = userrepo.findById(owner_id);
+        return contactrepo.findByOwnerOrderByTitleAsc(user);
+    }
+
+    public List<Contact> sortByFirstNameDesc(Long owner_id){
+
+        Optional<User> user = userrepo.findById(owner_id);
+        return contactrepo.findByOwnerOrderByFirstNameDesc(user);
+    }
+
+    public List<Contact> sortByLastNameDesc(Long owner_id){
+
+        Optional<User> user = userrepo.findById(owner_id);
+        return contactrepo.findByOwnerOrderByLastNameDesc(user);
+    }
+
+    public List<Contact> sortByTitleDesc(Long owner_id){
+
+        Optional<User> user = userrepo.findById(owner_id);
+        return contactrepo.findByOwnerOrderByTitleDesc(user);
+    }
+
 }
