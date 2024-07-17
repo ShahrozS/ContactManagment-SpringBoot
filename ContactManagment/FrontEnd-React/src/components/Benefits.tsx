@@ -21,155 +21,7 @@ import { generateUserId } from "./generateUserId";
 //       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
 //     ],
 //   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 1,
-//     firstName: "John",
-//     lastName: "Doe",
-//     title: "Mr.",
-//     emails: [
-//       { Email: "john.doe@example.com", LabelEmail: "Personal" },
-//       { Email: "j.doe@work.com", LabelEmail: "Work" },
-//     ],
-//     phones: [
-//       { PhoneNumber: "123-456-7890", LabelPhone: "Mobile" },
-//       { PhoneNumber: "098-765-4321", LabelPhone: "Home" },
-//     ],
-//   },
-//   {
-//     contact_id: 2,
-//     firstName: "Jane",
-//     lastName: "Smith",
-//     title: "Ms.",
-//     emails: [{ Email: "jane.smith@example.com", LabelEmail: "Personal" }],
-//     phones: [{ PhoneNumber: "555-555-5555", LabelPhone: "Mobile" }],
-//   },
-// ];
+
 
 interface Email {
   emailID: number;
@@ -193,58 +45,52 @@ interface ContactProps {
 }
 
 const Benefits = () => {
-  const [Contacts, setContacts] = useState<ContactProps[]>([]);
-  const [currentPage, setcurrentPage] = useState(1);
-  const [postPerPage, setpostPerPage] = useState(6);
-
-  const lastPostIndex = currentPage * postPerPage;
-  const firstPostIndex = lastPostIndex - postPerPage;
-  const currentPosts = Contacts.slice(firstPostIndex, lastPostIndex);
-
-  const [Name, setName] = useState("");
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(Name);
-  };
+  const [contacts, setContacts] = useState<ContactProps[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(6);
+  const [name, setName] = useState("");
 
   const token = localStorage.getItem("jwt");
   const username = localStorage.getItem("username");
-  console.log("tokem-->" + token);
+  console.log("token-->" + token);
   console.log("username: " + username);
   const id = generateUserId();
   console.log("generated id-->" + id);
-  
-    useEffect(() => {
 
-  if(id!="-"){
-
-      fetch(`http://localhost:8081/contacts/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+  const fetchContacts = (url: string) => {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched data:", data);
+        setContacts(data);
       })
-        .then((res) => res.text())
-        .then((data) => {
-          console.log(data);
-          try {
-            const jsonData = JSON.parse(data);
-            console.log(jsonData);
-            setContacts(jsonData);
-          } catch (e) {
-            console.error("Failed to parse JSON:", e);
-          }
-        })
-        .catch((e) => console.log(e));
-  
-      }
-      }, [id,token]);
-  
-  
- 
+      .catch((e) => console.log(e));
+  };
 
+  useEffect(() => {
+    if (id !== "-") {
+      fetchContacts(`http://localhost:8081/contacts/${id}`);
+    }
+  }, [id, token]);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (name === "") {
+      fetchContacts(`http://localhost:8081/contacts/${id}`);
+    } else {
+      fetchContacts(`http://localhost:8081/contacts/search/${name}/${id}`);
+    }
+  };
+
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = contacts.slice(firstPostIndex, lastPostIndex);
   return (
     <Section id="AllContacts">
       <div className="container relative z-2">
@@ -255,15 +101,16 @@ const Benefits = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="w-full flex items-center justify-center mb-6 relative "
+          className="w-full flex items-center flex-col justify-center mb-6 relative "
         >
+     <div>
           <input
             type="text"
             className=" rounded-full  h-10 w-[32rem] p-3 font-grotesk font-bold placeholder-n-6 text-n-6 bg-n-3 border-n-2"
             placeholder="Search..."
             onChange={(e) => setName(e.target.value)}
           />
-          <button className="absolute right-[25rem]">
+          <button className="absolute right-[25rem] mt-2 " >
             <Search
               sx={{
                 fontSize: "25px",
@@ -272,19 +119,22 @@ const Benefits = () => {
               }}
             />
           </button>
+          </div>
+          <p className="font-mono  mr-64 text-n-3 text-xs mt-2">Search nothing to show all contacts.</p>
         </form>
 
         <div className="flex flex-wrap gap-10 mb-10 mt-10">
           {currentPosts.map((item) => (
+            
             <BenefitCard id={item.contact_id} Contact={item} />
           ))}
         </div>
       </div>
 
       <Pagination
-        setCurrentPage={setcurrentPage}
+        setCurrentPage={setCurrentPage}
         currentPage={currentPage}
-        totalPosts={Contacts.length}
+        totalPosts={contacts.length}
         postPerPage={postPerPage}
       />
     </Section>

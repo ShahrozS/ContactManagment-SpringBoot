@@ -34,8 +34,15 @@ public class PhoneService implements PhoneServiceInterface
     public List<Contact> findContactByPhoneNumber(String PhoneNumber){
 
         List<Contact> contacts = new ArrayList<>();
-        Phone phone = phonerepository.findByPhoneNumber(PhoneNumber);
-        contacts.add(phone.getContact());
+        List<Phone> phone = phonerepository.findByPhoneNumber(PhoneNumber);
+        if(phone!=null)
+        {
+            for(Phone phone2:phone){
+                contacts.add(phone2.getContact());
+            }
+        }
+
+
         return  contacts;
     }
 

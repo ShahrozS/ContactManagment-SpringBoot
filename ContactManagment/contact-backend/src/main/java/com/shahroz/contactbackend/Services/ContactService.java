@@ -316,24 +316,31 @@ if(contact.getEmails()!=null) {
         }
     }
 
-    public List<Contact> searchContact(String query, Long ownerId){
-        List<Contact> contact = new ArrayList<>();
-        contact = contactrepo.findByFirstName(query);
-        if(contact.isEmpty()){
-            contact = contactrepo.findByLastName(query);
-            if(contact.isEmpty()){
-                contact = phoneService.findContactByPhoneNumber(query);
-                if(contact.isEmpty()){
-                    contact = emailServices.getContactByEmail(query);
+    public List<Contact> searchContact(String query, Long ownerId) {
+
+    try {
+
+        List<Contact> contacts = new ArrayList<>();
+
+        contacts = contactrepo.findByFirstName(query);
+        if (contacts.isEmpty()) {
+            contacts = contactrepo.findByLastName(query);
+            if (contacts.isEmpty()) {
+                contacts = phoneService.findContactByPhoneNumber(query);
+                if (contacts.isEmpty()) {
+                    contacts = emailServices.getContactByEmail(query);
                 }
             }
         }
 
-        contact = contact.stream()
-                .filter(con -> con.getOwner().getUser_id().equals(ownerId))
+        return contacts.stream()
+                .filter(contact -> contact.getOwner().getUser_id().equals(ownerId))
                 .collect(Collectors.toList());
 
-        return contact;
+    }catch(Exception e){
+        System.out.println("In service"+ e);
+    }
+return null;
     }
 
 

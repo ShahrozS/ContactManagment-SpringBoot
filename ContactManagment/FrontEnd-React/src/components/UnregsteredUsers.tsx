@@ -188,10 +188,11 @@ const UnregsteredUsers = () => {
         setInputemail([{ Email: "", LabelEmail: "" }]);
 
         setInputphone([{ PhoneNumber: "", LabelPhone: "" }]);
-        return res.json();
         setTimeout(() => {
           window.location.reload();
         }, 3000);
+        return res.json();
+
       }).then((data)=>{
         console.log("THis is the saved data----> "+JSON.stringify(data));
       })

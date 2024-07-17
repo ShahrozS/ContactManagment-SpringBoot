@@ -21,6 +21,8 @@ interface BenefitCardProps {
 }
 
 const BenefitCard: React.FC<BenefitCardProps> = ({ id, Contact }) => {
+  
+  console.log("THE DATA IN CARD: "+JSON.stringify(Contact?.firstName));
   const [tiltStyle, setTiltStyle] = useState<CSSProperties>({});
   const [currentEmailIndex, setCurrentEmailIndex] = useState(0);
   const [currentPhoneIndex, setCurrentPhoneIndex] = useState(0);
@@ -28,7 +30,12 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ id, Contact }) => {
 
 
 
-  const [contact, setContact] = useState(Contact || {});
+  const [contact, setContact] = useState(Contact);
+  useEffect(()=>{
+    setContact(Contact);
+  });
+  console.log("THE DATA IN CARD after: "+JSON.stringify(contact?.firstName));
+
 
   const handleInputChange = (e:any) => {
     const { name, value } = e.target;

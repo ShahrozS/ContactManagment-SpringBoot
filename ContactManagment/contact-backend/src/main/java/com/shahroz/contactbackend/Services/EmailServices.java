@@ -41,8 +41,15 @@ public class EmailServices implements EmailServiceInterface{
     public List<Contact> getContactByEmail(String email){
 
         List<Contact> contacts = new ArrayList<>();
-        Email email1 = emailrepository.findByEmail(email);
-        contacts.add(email1.getContact());
+        List<Email> email1 = emailrepository.findByEmail(email);
+        if(email1!=null) {
+
+for(Email email2:email1){
+    contacts.add(email2.getContact());
+}
+
+        }
+
 
         return contacts;
 

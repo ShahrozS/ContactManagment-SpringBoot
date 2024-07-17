@@ -63,17 +63,23 @@ public class ContactController {
     }
 
     @GetMapping("/search/{query}/{id}")
-    public ResponseEntity<List<Contact>> searchContact(@PathVariable String query,@PathVariable Long id){
-        try{
-            List<Contact> contacts = contactService.searchContact(query,id);
-            System.out.println(contacts.toArray());
-            return ResponseEntity.ok(contacts);
-        }catch (Exception e){
-            log.error("Error fetching contacts for id {}: {}", query, e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    public ResponseEntity<List<Contact>> searchContact(@PathVariable String query, @PathVariable Long id) {
+        try {
+            List<Contact> contacts = contactService.searchContact(query, id);
 
+            if (contacts.isEmpty()) {
+                log.warn("No contacts found for id {} and query {}", id, query);
+                return ResponseEntity.noContent().build();
+            }
+
+            log.info("Found {} contacts for id {} and query {}", contacts.size(), id, query);
+            return ResponseEntity.ok(contacts);
+        } catch (Exception e) {
+            log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
 
 
