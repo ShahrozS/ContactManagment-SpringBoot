@@ -4,6 +4,7 @@ import Section from "./Section";
 import UserCard from "./UserCard";
 import { Search } from "@mui/icons-material";
 import { generateUserId } from "./generateUserId";
+import Pagination from "./Pagination";
 
 interface UserProps{
   user_id:string ,
@@ -20,37 +21,50 @@ interface UserProps{
 const RegisteredUsers = () => {
   const [Name, setName] = useState("");
   const [users, setUsers] = useState<UserProps[]>([]);
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(Name);
-  };
-
-
-
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(6);
   const token = localStorage.getItem("jwt");
-  const fetchedid = generateUserId();
+  const username = localStorage.getItem("username");
+  
+
+
+    const fetchContacts = (url: string) => {
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Fetched data:", data);
+          setUsers(data);
+        })
+        .catch((e) => console.log(e));
+    };
+
+
+
+
+
+  const fetchedid = localStorage.getItem("id");
   console.log("+++"+fetchedid)
   useEffect(() => {
-    fetch(`http://localhost:8081/user/find/all-users`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => res.json()) 
-      .then((data) => {
-        if (Array.isArray(data)) {
-          console.log(data);
-          setUsers(data);
-        } else {
-          console.error("Expected an array but gots:", data);
-        }
-      })
-      .catch((e) => console.log(e));
-  }, []);
-
+    fetchContacts(`http://localhost:8081/user/find/all-users`);
+ 
+  }, [token,fetchedid]);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (Name === "") {
+      fetchContacts(`http://localhost:8081/user/find/all-users`);
+    } else {
+      fetchContacts(`http://localhost:8081/user/search/${Name}`);
+    }
+  };
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = users.slice(firstPostIndex, lastPostIndex);
 
   return (
     <Section id="RegisteredUsers">
@@ -77,7 +91,7 @@ const RegisteredUsers = () => {
         </form>
 
         <div className="flex flex-wrap gap-10 mb-10">
-          {users.map((item,index) => (
+          {currentPosts.map((item,index) => (
           item.user_id!=fetchedid? <UserCard
           key={index}
           user={item}
@@ -87,6 +101,15 @@ const RegisteredUsers = () => {
           ))}
         </div>
       </div>
+
+
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        totalPosts={users.length}
+        postPerPage={postPerPage}
+      />
+
     </Section>
   );
 };

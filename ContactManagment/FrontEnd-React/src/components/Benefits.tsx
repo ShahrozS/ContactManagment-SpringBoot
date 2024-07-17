@@ -107,7 +107,7 @@ const Benefits = () => {
           <input
             type="text"
             className=" rounded-full  h-10 w-[32rem] p-3 font-grotesk font-bold placeholder-n-6 text-n-6 bg-n-3 border-n-2"
-            placeholder="Search..."
+            placeholder="Search by first name, last name, phonenumber, email..."
             onChange={(e) => setName(e.target.value)}
           />
           <button className="absolute right-[25rem] mt-2 " >
