@@ -5,12 +5,14 @@ import { navigation } from "../constants";
 import Button from "./Button";
 import MenuSvg from "../assets/svg/MenuSvg";
 import { HambugerMenu } from "./design/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { IconButton } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
-
+  const [Options, setOptions] = useState(false);
 
 
   const navigate = useNavigate();
@@ -86,9 +88,31 @@ const Header = () => {
         >
         Logout
         </a>
-        <Button className="hidden lg:flex" href="/register">
+        {/* <Button className="hidden lg:flex" href="/register">
           Sign in
-        </Button>
+        </Button> */}
+
+
+          <div>
+            <IconButton onClick={()=>navigate("/profile")}>
+            <AccountCircle className=" bg-white rounded-full"
+            sx={{
+                fontSize:"51px",
+            }}
+            />
+            </IconButton>
+{/*           
+            <div className="absolute bg-n-3 w-[90px] h-[24px] ">
+
+            <a href=""> Edit Profile </a>
+            <a href="">Register</a>
+            </div> */}
+
+
+          </div>
+
+
+
 
         <Button
           className="ml-auto lg:hidden"

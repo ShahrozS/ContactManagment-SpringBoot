@@ -208,6 +208,7 @@ const UnregsteredUsers = () => {
       {/* Message Toast */}
       {showToast && (
         <Toast
+        className="absolute top-[155px] mb-6"
           color="successful"
           text="Contact Saved Successfully!"
           onClose={() => setShowToast(false)}
@@ -215,6 +216,7 @@ const UnregsteredUsers = () => {
       )}
       {error && (
         <Toast
+          className="absolute top-[155px] mb-6"
           color="error"
           text="Contact Saved Successfully!"
           onClose={() => setShowToast(false)}

@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -31,6 +33,29 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
+
+    @PostMapping("/checkPassword/{password}/{id}")
+    ResponseEntity<String> checkPassword(@PathVariable String password, @PathVariable Long id){
+        User user = userService.findById(id);
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        boolean check = bCryptPasswordEncoder.matches(password,user.getPassword());
+        System.out.println(password +" :::: "+user.getPassword());
+        if(check){
+            return ResponseEntity.ok("True");
+        }else{
+            return ResponseEntity.ok("False");
+        }
+    }
+
+    @PostMapping("/updatePassword/{password}/{id}")
+    ResponseEntity<String> updatePassword(@PathVariable String password , @PathVariable Long id){
+        if(userService.updatePassword(id,password)){
+            return ResponseEntity.ok("True");
+        }else{
+            return ResponseEntity.ok("False");
+        }
+    }
 
     @GetMapping("/find/{email}")
     ResponseEntity<User> findByEmail(@PathVariable String email){
@@ -69,5 +94,17 @@ return null;
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
         }
+    }
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @PutMapping("/updateUser")
+    ResponseEntity<User> updateUser(@RequestBody User user){
+            try{
+                return ResponseEntity.ok(userService.updateUser(user.getUser_id(),user));
+            }catch(Exception e){
+                log.error("Exception in controller, save user {}" , e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
     }
 }

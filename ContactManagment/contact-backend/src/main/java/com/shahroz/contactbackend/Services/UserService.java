@@ -60,15 +60,12 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User existinguser = userrepository.findById(id).orElseThrow(()->new RuntimeException("Entity not found"));
         existinguser.setPhoneNumber(user.getPhoneNumber());
-
-
         existinguser.setFirstName(user.getFirstName());
-
         existinguser.setLastName(user.getLastName());
-
         existinguser.setAddress(user.getAddress());
-
          existinguser.setEmail(user.getEmail());
+         existinguser.setPassword(user.getPassword());
+
 
          return userrepository.save(existinguser);
 
@@ -174,6 +171,22 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
          }catch(Exception e){
              log.error("{}",e);
              return null;
+         }
+     }
+     public boolean updatePassword(Long userid,String password){
+         try{
+             User user = findById(userid);
+
+             user.setPassword(passwordEncoder.encode(password));
+             User user1 = updateUser(userid, user);
+             if(user1==null){
+                 return false;
+             }else{
+                 return true;
+             }
+         } catch (Exception e){
+             log.error("in udpatePassword {}",e);
+            return false;
          }
      }
 
