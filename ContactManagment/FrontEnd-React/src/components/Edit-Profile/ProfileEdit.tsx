@@ -1,10 +1,10 @@
 import { TextareaAutosize, TextField } from "@mui/material";
 import { useState, ChangeEvent, FormEvent, useRef, useEffect } from "react";
-import { BackgroundCircles } from "./design/Hero";
+import { BackgroundCircles } from "../design/Hero";
 
-import "../index.css";
+import "../../index.css";
 import { redirect, useNavigate } from "react-router";
-import Heading from "./Heading";
+import Heading from "../Heading";
 
 const textFieldStyles = {
   base: {

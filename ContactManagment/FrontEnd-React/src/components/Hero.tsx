@@ -1,14 +1,14 @@
 import { curve, heroBackground, robot } from "../assets";
 
 import Section from "./Section";
-import Button from "./Button";
+import Button from "./Reusable/Button";
 import { BottomLine, Gradient, BackgroundCircles } from "./design/Hero";
 import { heroIcons } from "../constants";
 import { ScrollParallax } from "react-just-parallax";
 import { useEffect, useRef } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
-import { generateUserId } from "./generateUserId";
+import { generateUserId } from "./Reusable/generateUserId";
 const Hero = () => {
   const token = localStorage.getItem("jwt");
   localStorage.setItem("id",generateUserId());
@@ -86,9 +86,7 @@ mx-auto text-center mb-[4rem] md:mb-20 lg:mb:[6rem]
                   className="w-full scale-[1.7] translate-y-[8%] md:scale-[1] md:-translate-y-[10%] lg:-translate-y-[23%]"
                 />
 
-                <ScrollParallax isAbsolutelyPositioned>
                   <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
-                </ScrollParallax>
 
                 <ScrollParallax isAbsolutelyPositioned>
                   <ul

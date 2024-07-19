@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
-import Header from "./Header";
-import Toast from "./Toast";
+import Header from "../Header";
+import Toast from "../Reusable/Toast";
 
 const PasswordEdit = () => {
     const textFieldStyles = {

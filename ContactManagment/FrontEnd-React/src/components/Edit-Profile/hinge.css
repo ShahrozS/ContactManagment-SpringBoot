@@ -1,0 +1,40 @@
+.spiral-binding {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    bottom:244px;
+  }
+  
+  .spiral-binding .ring {
+    width: 3.5rem;
+    height: 1.5rem;
+    border: 6px solid #6b6b6b; /* Color of the spiral */
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom: none;
+    margin: 0.5rem 0; /* Space between rings */
+    background-color: transparent; /* Transparent background to simulate an open ring */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: add some shadow for depth */
+    position: relative;
+  }
+  
+  .spiral-binding .ring:before,
+  .spiral-binding .ring:after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 5px; /* Adjust the height as needed */
+    background-color: #6b6b6b; /* Same color as the ring border */
+    bottom: -0px; /* Position it just below the ring */
+  }
+  
+  .spiral-binding .ring:before {
+    left: 0;
+  }
+  
+  .spiral-binding .ring:after {
+    right: 0;
+  }
+  

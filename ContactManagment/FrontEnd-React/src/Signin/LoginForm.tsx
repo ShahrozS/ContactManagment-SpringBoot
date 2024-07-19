@@ -3,7 +3,7 @@ import { useState, ChangeEvent, FormEvent, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { BackgroundCircles } from "../components/design/Hero";
 import "../index.css";
-import { generateUserId } from "../components/generateUserId";
+import { generateUserId } from "../components/Reusable/generateUserId";
 
 interface FormData {
   email: string;

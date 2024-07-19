@@ -3,8 +3,9 @@ import { benefits } from "../constants";
 import Section from "./Section";
 import UserCard from "./UserCard";
 import { Search } from "@mui/icons-material";
-import { generateUserId } from "./generateUserId";
+import { generateUserId } from "./Reusable/generateUserId";
 import Pagination from "./Pagination";
+import Heading from "./Heading";
 
 interface UserProps{
   user_id:string ,
@@ -69,6 +70,11 @@ const RegisteredUsers = () => {
   return (
     <Section id="RegisteredUsers">
       <div className="container  relative z-2">
+      <Heading
+          className="md:max-w-md  lg:max-w-2xl text-center "
+          title="Add a Friend"
+        />
+
         <form
           onSubmit={handleSubmit}
           className="w-full flex items-center justify-center mb-6 relative "

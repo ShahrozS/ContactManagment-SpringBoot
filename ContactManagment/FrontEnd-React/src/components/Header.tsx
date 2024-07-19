@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { brainwave } from "../assets";
 import { navigation } from "../constants";
-import Button from "./Button";
+import Button from "./Reusable/Button";
 import MenuSvg from "../assets/svg/MenuSvg";
 import { HambugerMenu } from "./design/Header";
 import { useEffect, useState } from "react";

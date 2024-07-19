@@ -5,7 +5,7 @@ import Heading from "./Heading";
 import Section from "./Section";
 import Pagination from "./Pagination";
 import { ArrowDownward, ArrowUpward, Search } from "@mui/icons-material";
-import { generateUserId } from "./generateUserId";
+import { generateUserId } from "./Reusable/generateUserId";
 import { Button, ButtonGroup, IconButton } from "@mui/material";
 // const Contacts = [
 //   {
@@ -119,7 +119,7 @@ const Benefits = () => {
     <Section id="AllContacts">
       <div className="container relative z-2">
         <Heading
-          className="md:max-w-md lg:max-w-2xl"
+          className="md:max-w-md  lg:max-w-2xl text-center "
           title="All Your Contacts"
         />
 

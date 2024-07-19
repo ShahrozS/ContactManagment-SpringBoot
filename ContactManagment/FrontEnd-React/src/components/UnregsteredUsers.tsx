@@ -3,8 +3,8 @@ import Heading from "./Heading";
 import Section from "./Section";
 import { TextField, Button, IconButton, colors } from "@mui/material";
 import { Remove, Add } from "@mui/icons-material";
-import Toast from "./Toast";
-import { generateUserId } from "./generateUserId";
+import Toast from "./Reusable/Toast";
+import { generateUserId } from "./Reusable/generateUserId";
 import { redirect, useNavigate } from "react-router";
 
 type PhoneInput = {

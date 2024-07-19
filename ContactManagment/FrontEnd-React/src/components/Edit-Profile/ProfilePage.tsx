@@ -1,8 +1,11 @@
-import ButtonGradient from "../assets/svg/ButtonGradient";
-import Header from "../components/Header";
-import LoginHeading from "../Signin/LoginHeading";
+import ButtonGradient from "../../assets/svg/ButtonGradient";
+import Header from "../Header";
+import LoginHeading from "../../Signin/LoginHeading";
 import PasswordEdit from "./PasswordEdit";
 import ProfileEdit from "./ProfileEdit";
+import "./hinge.css";
+import SpiralBinding from "./SpiralBinding";
+
 
 const ProfilePage = () => {
   return (
@@ -13,6 +16,7 @@ const ProfilePage = () => {
       <LoginHeading text="Update" />
       <div className="flex flex-row justify-center gap-5">
       <ProfileEdit />
+      <SpiralBinding/>
       <PasswordEdit/>
       </div>
     </>
