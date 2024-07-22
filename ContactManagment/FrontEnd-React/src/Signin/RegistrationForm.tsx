@@ -30,10 +30,16 @@ const textFieldStyles = {
   },
   // Additional styles can be added as needed
   customTextField: {
-    width: "22rem", // Example additional custom style
+    "& input[type=number]": {
+      "-moz-appearance": "textfield",
+      appearance: "textfield",
+    },
+    "& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button": {
+      "-webkit-appearance": "none",
+      margin: 0,
+    },
   },
 };
-
 interface FormData {
   firstname: string;
   lastname: string;
@@ -84,7 +90,7 @@ const RegistrationForm = () => {
     };
     const token = localStorage.getItem("jwt");
 
-    fetch("http://localhost:8081/user/save", {
+    fetch("http://localhost:8081/auth/save", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -157,7 +163,7 @@ const RegistrationForm = () => {
             sx={{ ...textFieldStyles.base, ...textFieldStyles.customTextField }}
             autoComplete="off"
             name="phonenumber"
-            type="text"
+            type="number"
             value={formData.phonenumber}
             onChange={handleChange}
             label="Phone Number"
@@ -181,6 +187,7 @@ const RegistrationForm = () => {
           variant="outlined"
           sx={{ ...textFieldStyles.base, ...textFieldStyles.customTextField }}
           autoComplete="off"
+          type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}

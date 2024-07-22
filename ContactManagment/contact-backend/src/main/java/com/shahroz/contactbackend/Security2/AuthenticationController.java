@@ -67,6 +67,21 @@ public class AuthenticationController {
         }
     }
 
+
+    @PostMapping("/save")
+    ResponseEntity<User> saveUser(@RequestBody User user){
+        try{
+
+            User user1 = userService.createUser(user);
+            return ResponseEntity.ok(user1);
+
+        }catch(Exception e){
+            log.error("Exception in controller, save user {}" , e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
+    }
+
     @GetMapping("/current-user")
     public ResponseEntity<String> getCurrentUser(Principal principal){
         if(!principal.getName().isEmpty())
