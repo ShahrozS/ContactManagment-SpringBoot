@@ -29,7 +29,7 @@ public class UserService implements UserServiceInterface{
     private Userrepository userrepository;
 
     @Autowired
-//    PasswordEncoder passwordEncoder;
+  PasswordEncoder passwordEncoder;
 
 
 
@@ -38,7 +38,7 @@ return userrepository.findAll();
     }
 
     public User createUser(User user){
-//user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         System.out.println(user.getPassword());
         return userrepository.save(user);
     }
@@ -180,7 +180,7 @@ return userrepository.findAll();
          try{
              User user = findById(userid);
 
-//             user.setPassword(passwordEncoder.encode(password));
+               user.setPassword(passwordEncoder.encode(password));
              User user1 = updateUser(userid, user);
              if(user1==null){
                  return false;

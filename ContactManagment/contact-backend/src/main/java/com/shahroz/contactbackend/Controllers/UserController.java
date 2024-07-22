@@ -50,6 +50,7 @@ public class UserController {
 
     @PostMapping("/updatePassword/{password}/{id}")
     ResponseEntity<String> updatePassword(@PathVariable String password , @PathVariable Long id){
+        System.out.println("Cont Updating this password "+password);
         if(userService.updatePassword(id,password)){
             return ResponseEntity.ok("True");
         }else{
@@ -101,6 +102,7 @@ public class UserController {
     @PutMapping("/updateUser")
     ResponseEntity<User> updateUser(@RequestBody User user){
             try{
+
                 return ResponseEntity.ok(userService.updateUser(user.getUser_id(),user));
             }catch(Exception e){
                 log.error("Exception in controller, save user {}" , e);

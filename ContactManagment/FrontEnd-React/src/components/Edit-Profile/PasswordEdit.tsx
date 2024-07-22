@@ -67,8 +67,12 @@ const PasswordEdit = () => {
                             "Content-Type":"application/json",
                             "Authorization":`Bearer ${token}`
                         },
-                    }).then((res)=>res.text())
+                    }).then((res)=>{
+                      
+                      console.log(res);
+                      return res.text()})
                     .then((data)=>{
+                      console.log(data);
                         if(data=="True"){
                             setshowToast(true);
                             settoastColor("successful");

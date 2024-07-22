@@ -1,9 +1,7 @@
-import { TextField, Button } from "@mui/material";
-import { useState, ChangeEvent, FormEvent, useRef } from "react";
+import { TextField } from "@mui/material";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { BackgroundCircles } from "../components/design/Hero";
-import "../index.css";
-import { generateUserId } from "../components/Reusable/generateUserId";
+import Toast from "../components/Reusable/Toast";
 
 interface FormData {
   email: string;
@@ -19,6 +17,9 @@ const LoginForm = () => {
     password: "",
   });
 
+  const [toastText, setToastText] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -30,6 +31,7 @@ const LoginForm = () => {
   };
 
   const navigate = useNavigate();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -37,7 +39,6 @@ const LoginForm = () => {
       username: formData.email,
       password: formData.password,
     };
-    const token = localStorage.getItem("jwt");
 
     fetch("http://localhost:8081/auth/login", {
       method: "POST",
@@ -47,25 +48,27 @@ const LoginForm = () => {
       body: JSON.stringify(data),
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         }
+        if (res.status === 401) {
+          setShowToast(true);
+          setToastText("Wrong Credentials");
+        }
+        if (res.status === 404) {
+          setShowToast(true);
+          setToastText("Please Register First");
+        }
+        throw new Error("Unhandled response status: " + res.status);
       })
       .then((data) => {
         localStorage.setItem("jwt", data.token);
-        console.log(data.token);
         localStorage.setItem("username", data.username);
-
         navigate("/");
       })
       .catch((e) => {
         console.log(e);
       });
-  };
-
-  const handleRegister = () => {
-    navigate("/register"); // Navigate to the registration page
   };
 
   return (
@@ -74,6 +77,14 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
         className="bg-n-2 gap-4 border-n-1 rounded-xl flex flex-col items-center justify-center w-[32rem] h-[22rem] p-10"
       >
+        {showToast && (
+          <Toast
+            onClose={() => setShowToast(false)}
+            color="asdl"
+            className=""
+            text={toastText}
+          />
+        )}
         <TextField
           required
           className="pointer-events-auto rounded-xl w-[22rem]"
