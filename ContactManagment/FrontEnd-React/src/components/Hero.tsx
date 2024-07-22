@@ -24,11 +24,10 @@ const Hero = () => {
   //   })
   //     .then((res) => res.json())
   //     .then((data) => {
-  //       console.log(data);
-  //       //    setContacts(data);
+  //       console.log("Current user+++++"+data);
   //     })
   //     .catch((e) => console.log(e));
-  // }, []);
+  // }, [token]);
 
   const parallaxRef = useRef(null);
 

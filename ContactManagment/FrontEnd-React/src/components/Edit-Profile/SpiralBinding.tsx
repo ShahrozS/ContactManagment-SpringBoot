@@ -1,12 +1,11 @@
-
 const SpiralBinding = () => {
-    const rings = Array.from({ length: 12 }, (_, i) => <div key={i} className="ring"></div>);
+  const rings = Array.from({ length: 10 }, (_, i) => (
+    <div key={i} className="ring">
+      <div className="hole"></div>
+    </div>
+  ));
 
-    return (
-      <div className="spiral-binding">
-        {rings}
-      </div>
-    );
-}
+  return <div className="spiral-binding">{rings}</div>;
+};
 
-export default SpiralBinding
+export default SpiralBinding;

@@ -52,7 +52,7 @@ const PasswordEdit = () => {
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
-                "Authorization":`${token}`
+                "Authorization":`Bearer ${token}`
             },
         }).then((res)=>res.text())
         .then((data)=>{
@@ -65,7 +65,7 @@ const PasswordEdit = () => {
                         method:"POST",
                         headers:{
                             "Content-Type":"application/json",
-                            "Authorization":`${token}`
+                            "Authorization":`Bearer ${token}`
                         },
                     }).then((res)=>res.text())
                     .then((data)=>{

@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.shahroz.contactbackend.Repository.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +29,7 @@ public class UserService implements UserServiceInterface{
     private Userrepository userrepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+//    PasswordEncoder passwordEncoder;
 
 
 
@@ -35,7 +38,7 @@ return userrepository.findAll();
     }
 
     public User createUser(User user){
-user.setPassword(passwordEncoder.encode(user.getPassword()));
+//user.setPassword(passwordEncoder.encode(user.getPassword()));
         System.out.println(user.getPassword());
         return userrepository.save(user);
     }
@@ -177,7 +180,7 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
          try{
              User user = findById(userid);
 
-             user.setPassword(passwordEncoder.encode(password));
+//             user.setPassword(passwordEncoder.encode(password));
              User user1 = updateUser(userid, user);
              if(user1==null){
                  return false;
@@ -189,5 +192,28 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
             return false;
          }
      }
+
+
+    public static boolean isUserLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Authentication: " + authentication);
+        return authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"));
+    }
+
+    public static String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            System.out.println("Principal: " + principal);
+            if (principal instanceof UserDetails) {
+                return ((UserDetails) principal).getUsername();
+            } else {
+                return principal.toString();
+            }
+        }
+        return null;
+    }
+
 
 }

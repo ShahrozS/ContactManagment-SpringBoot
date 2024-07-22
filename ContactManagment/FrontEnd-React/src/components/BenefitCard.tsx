@@ -33,7 +33,7 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ id, Contact }) => {
   const [contact, setContact] = useState(Contact);
   useEffect(()=>{
     setContact(Contact);
-  });
+  },[Contact]);
   console.log("THE DATA IN CARD after: "+JSON.stringify(contact?.firstName));
 
 
@@ -160,7 +160,7 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ id, Contact }) => {
       method:"DELETE",
       headers:{
         "Content-type" : "application/json",
-        "Authorization":`${token}`
+        "Authorization":`Bearer ${token}`
       },
       body:JSON.stringify(contact),
     }).then((res)=>{

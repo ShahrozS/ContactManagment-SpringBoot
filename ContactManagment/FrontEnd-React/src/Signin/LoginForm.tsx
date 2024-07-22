@@ -34,7 +34,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     const data = {
-      email: formData.email,
+      username: formData.email,
       password: formData.password,
     };
     const token = localStorage.getItem("jwt");
@@ -43,7 +43,6 @@ const LoginForm = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })
@@ -54,7 +53,8 @@ const LoginForm = () => {
         }
       })
       .then((data) => {
-        localStorage.setItem("jwt", data.jwtToken);
+        localStorage.setItem("jwt", data.token);
+        console.log(data.token);
         localStorage.setItem("username", data.username);
 
         navigate("/");

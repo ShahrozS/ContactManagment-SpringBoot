@@ -21,7 +21,25 @@ const Header = () => {
     localStorage.setItem("jwt","");
     localStorage.setItem("username","");
     localStorage.setItem("id","");
-    navigate("/login");
+    
+
+    const token = localStorage.getItem("jwt");
+        
+    fetch("http://localhost:8081/auth/logout",{
+      headers:{
+        method:"GET",
+        "Content-type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+    }).then((res)=>{
+      if(res.ok){
+        console.log(res);
+        navigate("/login");
+            }
+    })
+    .catch((error)=>console.log(error));
+
+   // 
 
   }
 
@@ -51,7 +69,7 @@ const Header = () => {
       }`}
     >
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
-        <a className="block w-[12rem] xl:mr-8" href="#hero">
+        <a onClick={()=>navigate("/")} className="block w-[12rem] xl:mr-8" href="#hero">
           <img src={brainwave} width={190} height={40} alt="Brainwave" />
         </a>
 

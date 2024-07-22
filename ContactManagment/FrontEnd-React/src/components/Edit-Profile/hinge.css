@@ -1,40 +1,59 @@
 .spiral-binding {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 0;
-    bottom:244px;
-  }
-  
-  .spiral-binding .ring {
-    width: 3.5rem;
-    height: 1.5rem;
-    border: 6px solid #6b6b6b; /* Color of the spiral */
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom: none;
-    margin: 0.5rem 0; /* Space between rings */
-    background-color: transparent; /* Transparent background to simulate an open ring */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: add some shadow for depth */
-    position: relative;
-  }
-  
-  .spiral-binding .ring:before,
-  .spiral-binding .ring:after {
-    content: '';
-    position: absolute;
-    width: 2px;
-    height: 5px; /* Adjust the height as needed */
-    background-color: #6b6b6b; /* Same color as the ring border */
-    bottom: -0px; /* Position it just below the ring */
-  }
-  
-  .spiral-binding .ring:before {
-    left: 0;
-  }
-  
-  .spiral-binding .ring:after {
-    right: 0;
-  }
-  
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  bottom: 254px;
+}
+
+.spiral-binding .ring {
+  width: 3.5rem;
+  height: 1.5rem;
+  border: 5px solid #6b6b6b; /* Color of the spiral */
+  border-top-left-radius: 70%;
+  border-top-right-radius: 70%;
+  border-bottom: none;
+  margin: 0.5rem 0; /* Space between rings */
+  background-color: transparent; /* Transparent background to simulate an open ring */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: add some shadow for depth */
+  position: relative;
+}
+
+.spiral-binding .ring:before,
+.spiral-binding .ring:after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 6px; /* Adjust the height as needed */
+  background-color: #6b6b6b; /* Same color as the ring border */
+  bottom: 0; /* Position it just below the ring */
+}
+
+.spiral-binding .ring:before {
+  left: 0;
+}
+
+.spiral-binding .ring:after {
+  right: 0;
+}
+
+/* Adding punch holes */
+.spiral-binding .ring .hole:before,
+.spiral-binding .ring .hole:after {
+  content: '';
+  position: absolute;
+  width: 15px; /* Size of the punch hole */
+  height: 6px; /* Size of the punch hole */
+  background-color:#100c14; /* Same color as the ring border */
+  border-radius: 50%; /* Make it a circle */
+  bottom: -5px; /* Position it just below the ring */
+}
+
+.spiral-binding .ring .hole:before {
+  left: -10px; /* Position it on the left end */
+}
+
+.spiral-binding .ring .hole:after {
+  right: -10px; /* Position it on the right end */
+}

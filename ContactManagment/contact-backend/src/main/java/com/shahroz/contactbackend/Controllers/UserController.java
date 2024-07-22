@@ -62,16 +62,16 @@ public class UserController {
         return ResponseEntity.ok(userService.findByEmail(email));
     }
 
-    @GetMapping("/current-user")
-    public User getCurrentUser(Principal principal){
-
-        try{
-            return userService.findByEmail(principal.getName());
-        }catch(Exception e){
-            log.error("Exception in controller, save user {}" , e);
-return null;
-        }
-    }
+//    @GetMapping("/current-user")
+//    public User getCurrentUser(Principal principal){
+//
+//        try{
+//            return userService.findByEmail(principal.getName());
+//        }catch(Exception e){
+//            log.error("Exception in controller, save user {}" , e);
+//return null;
+//        }
+//    }
 
 
 
@@ -96,8 +96,8 @@ return null;
         }
     }
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
     @PutMapping("/updateUser")
     ResponseEntity<User> updateUser(@RequestBody User user){
             try{
@@ -106,5 +106,14 @@ return null;
                 log.error("Exception in controller, save user {}" , e);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
+    }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<String> currentUser() {
+        if (userService.isUserLoggedIn()) {
+            return ResponseEntity.ok("Logged in user: " + userService.getCurrentUsername());
+        } else {
+            return ResponseEntity.ok("False");
+        }
     }
 }

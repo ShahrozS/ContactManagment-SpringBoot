@@ -1,4 +1,4 @@
-package com.tericcabrel.authapi.services;
+package com.shahroz.contactbackend.Security2;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,8 +17,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtService {
-    @Value("${security.jwt.secret-key}")
-    private String secretKey;
+
+    // Make sure this key is correctly set in your application
+    private final String SECRETKEY = "zqr70GooivT5urALsGX3IiqeEXqSTKJ5Pz4LnnEZeCPtpUFvd7gwbNZpNCvKTOwfYJOYynNOFYi46knIW5W8YA==";
 
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
@@ -55,7 +56,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
@@ -82,7 +83,8 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRETKEY);
+        System.out.println("----------"+keyBytes.toString());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
