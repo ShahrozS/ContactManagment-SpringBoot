@@ -37,7 +37,9 @@ public class User implements UserDetails {
     @JsonProperty("lastname")
     private String lastName;
     private String address;
+
     @JsonProperty("phonenumber")
+    @Column(unique=true)
     private String phoneNumber;
     private String profilePictureId;
 

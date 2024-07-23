@@ -190,7 +190,7 @@ const UnregsteredUsers = () => {
         setInputphone([{ PhoneNumber: "", LabelPhone: "" }]);
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2000);
         return res.json();
 
       }).then((data)=>{

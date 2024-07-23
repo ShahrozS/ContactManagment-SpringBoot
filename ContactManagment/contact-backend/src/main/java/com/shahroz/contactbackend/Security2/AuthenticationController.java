@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Optional;
 
 
 @Slf4j
@@ -37,10 +38,27 @@ public class AuthenticationController {
         log.debug("Received login request for user: {}", loginUserDto.getUsername());
         try {
 
-            User user = userService.findByEmail(loginUserDto.getUsername());
-            if(user == null){
+            String username = "";
+            User user;
+
+            if(!loginUserDto.getUsername().contains("@")){
+
+                user = userService.getUserFromPhoneNumber(loginUserDto.getUsername());
+
+                 username = user.getEmail();
+            }else{
+                username = loginUserDto.getUsername();
+
+                user = userService.findByEmail(loginUserDto.getUsername());
+            }
+
+            if(user==null){
                 throw new UsernameNotFoundException("Username not found");
             }
+
+
+            loginUserDto.setUsername(username);
+
 
             User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
@@ -63,6 +81,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
         } catch (Exception ex) {
             log.error("An error occurred during authentication", ex);
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during authentication.");
         }
     }

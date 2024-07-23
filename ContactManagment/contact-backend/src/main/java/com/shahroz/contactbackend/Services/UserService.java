@@ -216,4 +216,8 @@ return userrepository.findAll();
     }
 
 
+    public User getUserFromPhoneNumber(String phonenumber){
+        return userrepository.findByPhoneNumber(phonenumber).get();
+    }
+
 }
