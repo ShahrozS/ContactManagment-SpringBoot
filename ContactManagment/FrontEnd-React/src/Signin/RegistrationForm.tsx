@@ -4,6 +4,7 @@ import { BackgroundCircles } from "../components/design/Hero";
 
 import "../index.css";
 import { redirect, useNavigate } from "react-router";
+import Toast from "../components/Reusable/Toast";
 
 const textFieldStyles = {
   base: {
@@ -51,6 +52,12 @@ interface FormData {
 }
 
 const RegistrationForm = () => {
+
+  const [showToast, setshowToast] = useState(false);
+  const [ToastText, setToastText] = useState("");
+
+
+
   const [formData, setFormData] = useState<FormData>({
     firstname: "",
     lastname: "",
@@ -75,10 +82,11 @@ const RegistrationForm = () => {
     e.preventDefault();
 
     if (formData.password != formData.confirmpassword) {
+      setToastText("Confirm Password Doesn't Match")
+      setshowToast(true);
       console.log("NAHH");
       return;
     }
-    console.log("Shouldntrun ");
 
     const data = {
       firstname: formData.firstname,
@@ -112,7 +120,14 @@ const RegistrationForm = () => {
           console.log("YAYYYYY SAVED");
           navigate("/login");
         }
-      })
+        if(res.status === 500)
+        {
+          setToastText("User Already Exists");
+      setshowToast(true);
+        
+        }
+      
+        })
       .catch((e) => {
         console.log(e);
       });
@@ -126,7 +141,20 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit}
         className="  bg-n-2 gap-4 border-n-1 rounded-xl flex flex-col items-center justify-center w-[52rem] h-[32rem] p-10"
       >
+
+          {showToast && (
+          <Toast
+            onClose={() => setshowToast(false)}
+            color="asdl"
+            className=""
+            text={ToastText}
+          />
+        )}
+
+
         {/* first and last name div  */}
+
+
 
         <div className="flex flex-row gap-5">
           <TextField

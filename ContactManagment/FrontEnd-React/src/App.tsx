@@ -13,6 +13,10 @@ const App = () => {
 
 
   const token = localStorage.getItem("jwt");
+  const timeString: string | null = localStorage.getItem("time");
+  const time: number | undefined = timeString !== null ? parseInt(timeString, 10) : undefined;
+  
+  
   const navigate = useNavigate();
   useEffect(()=>{
 
@@ -40,7 +44,12 @@ const App = () => {
     .catch((error)=>console.log(error));
 
 
-  },[token])
+    setTimeout(() => {
+      console.log("in Time out"+ time);
+      navigate("/login");
+    }, time);
+
+  },[token,time])
 
 
 

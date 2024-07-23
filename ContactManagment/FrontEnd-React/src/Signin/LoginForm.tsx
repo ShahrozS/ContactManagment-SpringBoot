@@ -62,8 +62,10 @@ const LoginForm = () => {
         throw new Error("Unhandled response status: " + res.status);
       })
       .then((data) => {
+        console.log(data);
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("username", data.username);
+        localStorage.setItem("time",data.expiresIn)
         navigate("/");
       })
       .catch((e) => {
@@ -115,7 +117,7 @@ const LoginForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          label="Email"
+          label="Email or Phone Number"
         />
         <TextField
           required

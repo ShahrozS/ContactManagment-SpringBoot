@@ -5,15 +5,15 @@
   align-items: center;
   padding: 1rem 0;
   bottom: 104px;
-  left: -2.34rem;
+  left: -1.75rem;
 }
 
 .spiral-binding .ring {
-  width: 4.5rem;
+  width: 3.5rem;
   height: 1.5rem;
-  border: 6px solid #6b6b6b; /* Color of the spiral */
-  border-top-left-radius: 70%;
-  border-top-right-radius: 70%;
+  border: 6px  groove  #535353; /* Color of the spiral */
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
   border-bottom: none;
   margin: 0.5rem 0; /* Space between rings */
   background-color: transparent; /* Transparent background to simulate an open ring */

@@ -14,7 +14,7 @@ const ProfilePage = () => {
 
       <div className=" relative pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden"></div>
       <LoginHeading text="Update" />
-      <div className="flex flex-row justify-center gap-5">
+      <div className="flex flex-row justify-center gap-3">
       <ProfileEdit />
       <div className="relative">
       <SpiralBinding/></div>
