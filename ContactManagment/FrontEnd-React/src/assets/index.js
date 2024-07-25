@@ -25,6 +25,8 @@ import curve from "./hero/curve.png";
 import robot from "./hero/robot.jpeg";
 import heroBackground from "./hero/hero-background.jpg";
 
+import RegistrationHalf from "./RegistrationHalf.jpg";
+import LoginHalf from "./LoginHalf.jpg"
 import curve1 from "./collaboration/curve-1.svg";
 import curve2 from "./collaboration/curve-2.svg";
 import discord from "./collaboration/discord.png";
@@ -86,6 +88,7 @@ export {
   gradient,
   smallSphere,
   grid,
+  RegistrationHalf,
   yourlogo,
   homeSmile,
   file02,
@@ -100,6 +103,7 @@ export {
   background,
   curve,
   robot,
+  LoginHalf,
   heroBackground,
   curve1,
   curve2,

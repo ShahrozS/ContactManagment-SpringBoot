@@ -5,6 +5,8 @@ import { BackgroundCircles } from "../components/design/Hero";
 import "../index.css";
 import { redirect, useNavigate } from "react-router";
 import Toast from "../components/Reusable/Toast";
+import LoginHeading from "./LoginHeading";
+import { RegistrationHalf } from "../assets";
 
 const textFieldStyles = {
   base: {
@@ -137,10 +139,17 @@ const RegistrationForm = () => {
 
   return (
     <div className="flex  justify-center items-center " ref={parallaxRef}>
+     
+<img src={RegistrationHalf} width={460} height={40} alt="LoginHalf" />
+
+     
+     
+     
       <form
         onSubmit={handleSubmit}
-        className="  bg-n-2 gap-4 border-n-1 rounded-xl flex flex-col items-center justify-center w-[52rem] h-[32rem] p-10"
+        className="    bg-rose-100 gap-4 border-n-1  flex flex-col items-center justify-center w-[852px] h-[691px] p-10"
       >
+      <LoginHeading className="h3 text-black  mb-5" text="Register" />
 
           {showToast && (
           <Toast

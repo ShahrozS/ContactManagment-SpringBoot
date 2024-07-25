@@ -3,12 +3,13 @@ import { Rings } from "../components/design/Header";
 
 interface LoginHeadingProps {
   text: string;
+  className: string;
 }
 
-const LoginHeading = ({ text }: LoginHeadingProps) => {
+const LoginHeading = ({ text,className }: LoginHeadingProps) => {
   return (
     <>
-      <h1 className="text-center font-code h1 font-bold mb-12">
+      <h1 className={` ${className?className:""}  text-center fo  font-bold `}>
         {text} to{" "}
         <span className="inline-block relative">
           TeleBook{" "}

@@ -2,6 +2,8 @@ import { TextField } from "@mui/material";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Reusable/Toast";
+import {LoginHalf} from "../assets";
+import LoginHeading from "./LoginHeading";
 
 interface FormData {
   email: string;
@@ -55,7 +57,7 @@ const LoginForm = () => {
           setShowToast(true);
           setToastText("Wrong Credentials");
         }
-        if (res.status === 404) {
+        if (res.status === 404 || res.status === 500) {
           setShowToast(true);
           setToastText("Please Register First");
         }
@@ -75,10 +77,18 @@ const LoginForm = () => {
 
   return (
     <div className="flex justify-center items-center">
+
+<img src={LoginHalf} width={890} height={40} alt="LoginHalf" />
+    
+    
       <form
         onSubmit={handleSubmit}
-        className="bg-n-2 gap-4 border-n-1 rounded-xl flex flex-col items-center justify-center w-[32rem] h-[22rem] p-10"
+        className="bg-n-1 gap-4 border-n-1  flex flex-col items-center justify-center w-[532px] h-[765px] p-10"
       >
+
+<LoginHeading text="Login" className="text-black h3 mb-5 "/>
+
+
         {showToast && (
           <Toast
             onClose={() => setShowToast(false)}
@@ -156,13 +166,13 @@ const LoginForm = () => {
         <div className="flex gap-2">
           <button
             type="submit"
-            className="button-glow p-2 pointer-events-auto bg-n-6 hover:bg-n-8 rounded-lg"
+            className="button-glow p-2 pointer-events-auto bg-n-6 hover:bg-n-8 rounded"
           >
             Login
           </button>
           <a
             href="/register"
-            className=" text-center p-2 button-glow bg-n-6 hover:bg-n-8 rounded-lg"
+            className=" text-center p-2 button-glow bg-n-6 hover:bg-n-8 rounded"
           >
             Register
           </a>
