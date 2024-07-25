@@ -19,25 +19,5 @@ class ContactBackendApplicationTests {
     }
 
 
-    @Autowired
-    private UserService service;
-
-    private ContactService contactService;
-
-
-    @MockBean
-    private Userrepository userrepository;
-    private Contactrepository contactrepository;
-    public void addFriendContactTest(){
-
-//when(contactService.saveFriendContact(
-//        new Contact("1",)
-//))
-    }
-
-//
-//    public void findByFriendAndOwnerTest(){
-//        when(contactrepository.findByFriendAndOwner(1l,2l).
-//    }
 
 }

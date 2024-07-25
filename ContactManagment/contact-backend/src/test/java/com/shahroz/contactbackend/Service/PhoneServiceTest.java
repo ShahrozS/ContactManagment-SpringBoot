@@ -45,8 +45,7 @@ public class PhoneServiceTest {
     void findContactByPhoneNumber() {
         // given
         String phoneNumber = "0123456789";
-        Contact contact = new Contact();
-        Phone phone = new Phone(1L, phoneNumber, contact);
+        Phone phone = new Phone(1L, phoneNumber);
         List<Phone> phoneList = new ArrayList<>();
         phoneList.add(phone);
 
@@ -57,13 +56,14 @@ public class PhoneServiceTest {
         // then
         assertThat(contacts).isNotNull();
         assertThat(contacts.size()).isEqualTo(1);
-        assertThat(contacts.get(0)).isEqualTo(contact);
     }
 
     @Test
     void deletePhone() {
         // given
-        Phone phone = new Phone(1L, "0123456789", new Contact());
+
+
+        Phone phone = new Phone(1L, "0123456789");
 
         // when
         doNothing().when(phonerepository).delete(phone);

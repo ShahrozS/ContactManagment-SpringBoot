@@ -27,6 +27,12 @@ public class Email {
     @Column(nullable = false)
     private String LabelEmail;
 
+    public Email(long l, String mail) {
+    }
+
+    public Email(long l, String emailStr, Contact contact) {
+    }
+
     @JsonProperty("Email")
     public void setEmail(String email) {
         this.email = email;

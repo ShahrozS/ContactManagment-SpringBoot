@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,19 +21,23 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ContactService implements ContactServiceInterface{
 
-    @Autowired
-    Userrepository userrepo;
+    private final Userrepository userrepo;
+
+    private final Contactrepository contactrepo;
+
+
+    private final EmailServices emailServices;
+
+
+    private final  PhoneService phoneService;
 
     @Autowired
-    Contactrepository contactrepo;
-
-
-    @Autowired
-    EmailServices emailServices;
-
-
-    @Autowired
-    PhoneService phoneService;
+    public ContactService(Userrepository userrepo, Contactrepository contactrepo, EmailServices emailServices, PhoneService phoneService) {
+        this.userrepo = userrepo;
+        this.contactrepo = contactrepo;
+        this.emailServices = emailServices;
+        this.phoneService = phoneService;
+    }
 
     @Override
     public Contact createContact(Contact contact) {
@@ -52,7 +55,6 @@ public class ContactService implements ContactServiceInterface{
 
             contact1 = contactrepo.save(contact1);
 
-            System.out.println("SAVING CONTACT BEFORE EMAIL WAGHERA ::::::"+contact1.toString());
             System.out.println("_____"+contact.toString());
 
 
@@ -84,6 +86,56 @@ public class ContactService implements ContactServiceInterface{
         }
 
     }
+
+    //for testing purpose
+    public Contact createContactForTest(Contact contact) {
+        try {
+            System.out.println(contact.toString());
+
+            // Create a new contact and set its properties
+            Contact contact1 = new Contact();
+            contact1.setTitle(contact.getTitle());
+            contact1.setFirstName(contact.getFirstName());
+            contact1.setLastName(contact.getLastName());
+            contact1.setOwner(contact.getOwner());
+
+            // Save the new contact
+            contact1 = contactrepo.save(contact1);
+            if (contact1 == null) {
+                throw new IllegalStateException("Failed to save contact");
+            }
+
+            System.out.println("_____" + contact.toString());
+
+            // Save emails and phones associated with the contact
+            if (contact.getEmails() != null) {
+                for (Email email : contact.getEmails()) {
+                    email.setContact(contact1);
+                    emailServices.saveEmail(email);
+                }
+            }
+
+            if (contact.getPhones() != null) {
+                for (Phone phone : contact.getPhones()) {
+                    phone.setContact(contact1);
+                    phoneService.savePhone(phone);
+                }
+            }
+
+            // Set the saved emails and phones to the contact1
+            contact1.setEmails(contact.getEmails());
+            contact1.setPhones(contact.getPhones());
+
+            System.out.println("########inservice : + in contact " + contact.getEmails().toString());
+            System.out.println("########inservice : + in contact1 " + contact1.getEmails().toString());
+
+            return contact1;
+        } catch (Exception e) {
+            log.error("createContact{}", e);
+            return null;
+        }
+    }
+
 
     @Override
     public List<Contact> allContacts() {

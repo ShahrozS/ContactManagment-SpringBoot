@@ -2,9 +2,7 @@ package com.shahroz.contactbackend.Controllers;
 
 
 import com.shahroz.contactbackend.Entities.Contact;
-import com.shahroz.contactbackend.Entities.User;
 import com.shahroz.contactbackend.Services.ContactService;
-import com.shahroz.contactbackend.Services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,11 +26,13 @@ public class ContactController {
 //    }
 
 
-    @Autowired
-    UserService userService;
+    private final ContactService contactService;
 
     @Autowired
-    ContactService contactService;
+    public ContactController( ContactService contactService) {
+        this.contactService = contactService;
+    }
+
 
     @PostMapping
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact){

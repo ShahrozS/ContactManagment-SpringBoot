@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 
@@ -23,7 +21,6 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-
 public class User implements UserDetails {
 
     @Id
@@ -120,5 +117,17 @@ public class User implements UserDetails {
 
     public void setId(long l) {
 
+    }
+
+
+    public User(Long user_id, String email, String password, String firstName, String lastName, String address, String phoneNumber, String profilePictureId) {
+        this.user_id = user_id;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.profilePictureId = profilePictureId;
     }
 }

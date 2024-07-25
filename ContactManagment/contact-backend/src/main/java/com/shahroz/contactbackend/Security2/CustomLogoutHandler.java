@@ -8,13 +8,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class CustomLogoutHandler implements LogoutHandler {
 
+    private final BlackListTokenService blackListTokenService;
+
     @Autowired
-    BlackListTokenService blackListTokenService;
+    public CustomLogoutHandler(BlackListTokenService blackListTokenService) {
+        this.blackListTokenService = blackListTokenService;
+    }
+
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

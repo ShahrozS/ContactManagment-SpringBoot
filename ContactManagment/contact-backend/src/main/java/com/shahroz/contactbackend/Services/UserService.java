@@ -2,7 +2,6 @@ package com.shahroz.contactbackend.Services;
 
 import com.shahroz.contactbackend.Entities.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.shahroz.contactbackend.Repository.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -25,13 +24,15 @@ import java.util.regex.Pattern;
 public class UserService implements UserServiceInterface{
 
 
-    @Autowired
-    private Userrepository userrepository;
+    private final Userrepository userrepository;
+
+ private final PasswordEncoder passwordEncoder;
 
     @Autowired
-  PasswordEncoder passwordEncoder;
-
-
+    public UserService(Userrepository userrepository, PasswordEncoder passwordEncoder) {
+        this.userrepository = userrepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public List<User> getUsers(){
 return userrepository.findAll();
@@ -42,7 +43,9 @@ return userrepository.findAll();
         System.out.println(user.getPassword());
         return userrepository.save(user);
     }
-
+    public User save(User user){
+        return userrepository.save(user);
+    }
 
     @Override
     public User findById(Long id) {
@@ -216,8 +219,8 @@ return userrepository.findAll();
     }
 
 
-    public User getUserFromPhoneNumber(String phonenumber){
-        return userrepository.findByPhoneNumber(phonenumber).get();
-    }
+        public User getUserFromPhoneNumber(String phonenumber) {
+            return userrepository.findByPhoneNumber(phonenumber).orElse(null);
+        }
 
 }

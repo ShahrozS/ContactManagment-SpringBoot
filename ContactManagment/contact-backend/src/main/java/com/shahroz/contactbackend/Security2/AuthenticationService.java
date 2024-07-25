@@ -1,5 +1,4 @@
 package com.shahroz.contactbackend.Security2;
-;
 import com.shahroz.contactbackend.Entities.User;
 import com.shahroz.contactbackend.Repository.Userrepository;
 import org.springframework.security.authentication.AuthenticationManager;

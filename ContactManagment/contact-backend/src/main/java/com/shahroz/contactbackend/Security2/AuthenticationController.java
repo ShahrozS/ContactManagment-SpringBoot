@@ -24,15 +24,17 @@ import java.util.Optional;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final JwtService jwtService;
+    private final UserService userService;
 
-    public AuthenticationController(AuthenticationService authenticationService, JwtService jwtService) {
+    @Autowired
+    public AuthenticationController(AuthenticationService authenticationService, JwtService jwtService, UserService userService) {
         this.authenticationService = authenticationService;
         this.jwtService = jwtService;
+        this.userService = userService;
     }
 
 
-    @Autowired
-    UserService userService;
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginUserDto loginUserDto) {
         log.debug("Received login request for user: {}", loginUserDto.getUsername());

@@ -10,10 +10,14 @@ import java.util.Optional;
 
 @Service
 public class BlackListTokenService {
+    private final BlackListTokenRepository blackListTokenRepository;
 
 
     @Autowired
-    BlackListTokenRepository blackListTokenRepository;
+    public BlackListTokenService(BlackListTokenRepository blackListTokenRepository) {
+        this.blackListTokenRepository = blackListTokenRepository;
+    }
+
 
     public boolean isTokenBlacklisted(String token){
         Optional<BlackListTokens> token1 = blackListTokenRepository.findBlackListTokensByToken(token);

@@ -28,6 +28,12 @@ public class Phone {
     @Column(nullable = false)
     private String LabelPhone;
 
+    public Phone(long l, String number, Contact contact) {
+    }
+
+    public Phone(long l, String number) {
+    }
+
 
     @JsonProperty("PhoneNumber")
     public void setPhoneNumber(String phoneNumber) {

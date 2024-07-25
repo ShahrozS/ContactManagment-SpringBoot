@@ -1,15 +1,11 @@
-// Java Program to Illustrate Unit Testing of Service Class
 
 package com.shahroz.contactbackend.Service;
-//USing BDD Mockito
-import static org.mockito.BDDMockito.verify;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.shahroz.contactbackend.Entities.User;
 import com.shahroz.contactbackend.Repository.Userrepository;
 import com.shahroz.contactbackend.Services.UserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

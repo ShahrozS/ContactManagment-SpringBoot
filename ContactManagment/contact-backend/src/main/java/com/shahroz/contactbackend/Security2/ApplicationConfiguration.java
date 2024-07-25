@@ -2,6 +2,8 @@ package com.shahroz.contactbackend.Security2;
 
 
 import com.shahroz.contactbackend.Repository.Userrepository;
+import com.shahroz.contactbackend.Services.BlackListTokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 public class ApplicationConfiguration {
     private final Userrepository userRepository;
 
+    @Autowired
     public ApplicationConfiguration(Userrepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -50,7 +53,7 @@ public class ApplicationConfiguration {
 
 
     @Bean
-    public LogoutHandler logoutHandler() {
-        return new CustomLogoutHandler();
+    public LogoutHandler logoutHandler(BlackListTokenService blackListTokenService) {
+        return new CustomLogoutHandler(blackListTokenService);
     }
 }

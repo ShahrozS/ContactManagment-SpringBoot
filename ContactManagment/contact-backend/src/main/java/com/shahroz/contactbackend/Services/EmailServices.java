@@ -16,9 +16,12 @@ import java.util.List;
 public class EmailServices implements EmailServiceInterface{
 
 
-    @Autowired
-    Emailrepository emailrepository;
+private final Emailrepository emailrepository;
 
+@Autowired
+    public EmailServices(Emailrepository emailrepository) {
+        this.emailrepository = emailrepository;
+    }
 
     public void saveEmail(Email email)
     {
