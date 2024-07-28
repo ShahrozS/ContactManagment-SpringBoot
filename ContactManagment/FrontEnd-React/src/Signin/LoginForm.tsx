@@ -78,15 +78,15 @@ const LoginForm = () => {
   return (
     <div className="flex justify-center items-center">
 
-<img src={LoginHalf} width={890} height={40} alt="LoginHalf" />
+<img src={LoginHalf} width={1190} height={40} alt="LoginHalf" />
     
     
       <form
         onSubmit={handleSubmit}
-        className="bg-n-1 gap-4 border-n-1  flex flex-col items-center justify-center w-[532px] h-[765px] p-10"
+        className="bg-n-1 gap-4 border-n-1  flex flex-col items-center justify-center w-[932px] h-[1065px] p-10"
       >
 
-<LoginHeading text="Login" className="text-black h3 mb-5 "/>
+<LoginHeading text="Login" className="text-black h4 mb-5 "/>
 
 
         {showToast && (

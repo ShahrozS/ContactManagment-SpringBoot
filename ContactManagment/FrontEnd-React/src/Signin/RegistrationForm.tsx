@@ -140,14 +140,14 @@ const RegistrationForm = () => {
   return (
     <div className="flex  justify-center items-center " ref={parallaxRef}>
      
-<img src={RegistrationHalf} width={460} height={40} alt="LoginHalf" />
+<img src={RegistrationHalf} width={690} height={40} alt="LoginHalf" />
 
      
      
      
       <form
         onSubmit={handleSubmit}
-        className="    bg-rose-100 gap-4 border-n-1  flex flex-col items-center justify-center w-[852px] h-[691px] p-10"
+        className="    bg-rose-100 gap-4 border-n-1  flex flex-col items-center justify-center w-[1252px] h-[991px] p-10"
       >
       <LoginHeading className="h3 text-black  mb-5" text="Register" />
 

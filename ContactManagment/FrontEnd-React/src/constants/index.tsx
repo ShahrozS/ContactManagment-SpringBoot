@@ -52,19 +52,15 @@ export const navigation = [
     title: "Add a Friend",
     url: "#RegisteredUsers",
   },
+
   {
     id: "3",
-    title: "Roadmap",
-    url: "#roadmap",
-  },
-  {
-    id: "4",
     title: "New account",
     url: "#signup",
     onlyMobile: true,
   },
   {
-    id: "5",
+    id: "4",
     title: "Sign in",
     url: "#login",
     onlyMobile: true,
