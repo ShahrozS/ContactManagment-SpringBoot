@@ -1,4 +1,4 @@
-import { TextareaAutosize, TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextareaAutosize, TextField } from "@mui/material";
 import { useState, ChangeEvent, FormEvent, useRef } from "react";
 import { BackgroundCircles } from "../components/design/Hero";
 
@@ -7,6 +7,7 @@ import { redirect, useNavigate } from "react-router";
 import Toast from "../components/Reusable/Toast";
 import LoginHeading from "./LoginHeading";
 import { RegistrationHalf } from "../assets";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const textFieldStyles = {
   base: {
@@ -57,7 +58,16 @@ const RegistrationForm = () => {
 
   const [showToast, setshowToast] = useState(false);
   const [ToastText, setToastText] = useState("");
+ 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword((prev) => !prev);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
 
   const [formData, setFormData] = useState<FormData>({
@@ -238,10 +248,26 @@ const RegistrationForm = () => {
             sx={{ ...textFieldStyles.base, ...textFieldStyles.customTextField }}
             autoComplete="off"
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={formData.password}
             onChange={handleChange}
             label="Password"
+
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+
+
           />
           <TextField
             required
@@ -250,22 +276,37 @@ const RegistrationForm = () => {
             sx={{ ...textFieldStyles.base, ...textFieldStyles.customTextField }}
             autoComplete="off"
             name="confirmpassword"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             value={formData.confirmpassword}
             onChange={handleChange}
             label="Confirm Password"
+
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowConfirmPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+
           />
         </div>
         <div className="flex gap-2">
           <button
             type="submit"
-            className=" p-3 button-glow bg-n-6 hover:bg-n-8 rounded-lg"
+            className=" p-3  text-lg button-glow bg-n-6 hover:bg-n-8 rounded-lg"
           >
             Register
           </button>
           <a
             href="/login"
-            className=" text-center p-3 button-glow bg-n-6 hover:bg-n-8 rounded-lg"
+            className=" text-center  text-lg p-3 button-glow bg-n-6 hover:bg-n-8 rounded-lg"
           >
             Login
           </a>

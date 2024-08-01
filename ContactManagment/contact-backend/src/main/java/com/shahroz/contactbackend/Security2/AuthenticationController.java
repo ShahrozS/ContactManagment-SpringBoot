@@ -43,6 +43,8 @@ public class AuthenticationController {
             String username = "";
             User user;
 
+
+            //handleing both email and phone.
             if(!loginUserDto.getUsername().contains("@")){
 
                 user = userService.getUserFromPhoneNumber(loginUserDto.getUsername());
@@ -73,7 +75,7 @@ public class AuthenticationController {
 
 
             log.debug("Generated token for user: {}", loginResponse);
-
+            log.info("Logging in");
             return ResponseEntity.ok(loginResponse);
         } catch (UsernameNotFoundException ex) {
             log.error("User not found: {}", loginUserDto.getUsername());
@@ -94,6 +96,8 @@ public class AuthenticationController {
         try{
 
             User user1 = userService.createUser(user);
+
+            log.info("Saved the user");
             return ResponseEntity.ok(user1);
 
         }catch(Exception e){
@@ -105,8 +109,11 @@ public class AuthenticationController {
 
     @GetMapping("/current-user")
     public ResponseEntity<String> getCurrentUser(Principal principal){
+        log.info("Getting current user");
+
         if(!principal.getName().isEmpty())
         return ResponseEntity.ok(principal.getName());
+
 
         return ResponseEntity.ok("Not found");
     }

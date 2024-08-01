@@ -26,12 +26,15 @@ public class UserController {
 
     @GetMapping("/find/all-users")
     ResponseEntity<List<User>> getAllUsers(){
+        log.info("Returning all users");
         return ResponseEntity.ok(userService.getUsers());
     }
 
 
     @GetMapping("/{id}")
     ResponseEntity<User> getUserById(@PathVariable Long id){
+
+        log.info("Returning user of id : {}",id);
         return ResponseEntity.ok(userService.findById(id));
     }
 
@@ -43,6 +46,8 @@ public class UserController {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         boolean check = bCryptPasswordEncoder.matches(password,user.getPassword());
         System.out.println(password +" :::: "+user.getPassword());
+
+        log.info("Checked Password successfully");
         if(check){
             return ResponseEntity.ok("True");
         }else{
@@ -53,6 +58,7 @@ public class UserController {
     @PostMapping("/updatePassword/{password}/{id}")
     ResponseEntity<String> updatePassword(@PathVariable String password , @PathVariable Long id){
         System.out.println("Cont Updating this password "+password);
+        log.info("Updated password");
         if(userService.updatePassword(id,password)){
             return ResponseEntity.ok("True");
         }else{
@@ -62,6 +68,7 @@ public class UserController {
 
     @GetMapping("/find/{email}")
     ResponseEntity<User> findByEmail(@PathVariable String email){
+       log.info("Found Email");
         return ResponseEntity.ok(userService.findByEmail(email));
     }
 
@@ -82,6 +89,8 @@ public class UserController {
     @GetMapping("/search/{name}")
     ResponseEntity<List<User>> getUserByName(@PathVariable String name){
         System.out.println("In Controller:  "+ name);
+
+        log.info("Searched by name");
         return ResponseEntity.ok(userService.findByName(name));
     }
 
@@ -105,6 +114,7 @@ public class UserController {
     ResponseEntity<User> updateUser(@RequestBody User user){
             try{
 
+                log.info("Updated user");
                 return ResponseEntity.ok(userService.updateUser(user.getUser_id(),user));
             }catch(Exception e){
                 log.error("Exception in controller, save user {}" , e);
@@ -114,6 +124,8 @@ public class UserController {
 
     @GetMapping("/current-user")
     public ResponseEntity<String> currentUser() {
+
+        log.info("Found Current User");
         if (userService.isUserLoggedIn()) {
             return ResponseEntity.ok("Logged in user: " + userService.getCurrentUsername());
         } else {

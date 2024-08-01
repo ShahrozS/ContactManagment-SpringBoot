@@ -1,9 +1,10 @@
-import { TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Reusable/Toast";
 import {LoginHalf} from "../assets";
 import LoginHeading from "./LoginHeading";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface FormData {
   email: string;
@@ -31,6 +32,14 @@ const LoginForm = () => {
       [name]: value,
     });
   };
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+
+
 
   const navigate = useNavigate();
 
@@ -157,22 +166,36 @@ const LoginForm = () => {
           }}
           autoComplete="off"
           name="password"
-          type="password"
+            type={showPassword ? "text" : "password"}
           value={formData.password}
           onChange={handleChange}
           label="Password"
+
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
 
         <div className="flex gap-2">
           <button
             type="submit"
-            className="button-glow p-2 pointer-events-auto bg-n-6 hover:bg-n-8 rounded"
+            className="button-glow p-3 text-lg pointer-events-auto bg-n-6 hover:bg-n-8 rounded"
           >
             Login
           </button>
           <a
             href="/register"
-            className=" text-center p-2 button-glow bg-n-6 hover:bg-n-8 rounded"
+            className=" text-center text-lg p-3  button-glow bg-n-6 hover:bg-n-8 rounded"
           >
             Register
           </a>

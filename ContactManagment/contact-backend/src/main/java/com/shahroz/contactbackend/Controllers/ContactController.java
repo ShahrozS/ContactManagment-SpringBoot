@@ -40,7 +40,7 @@ public class ContactController {
     try{
         System.out.println("##### IN CONTROLLER: " + contact.getEmails().toString());
         Contact contact1 = contactService.createContact(contact);
-
+        log.info("Contact has been saved of {}",contact.getOwner().getFirstName());
         return ResponseEntity.ok(contact1);
     }catch (Exception e){
         log.error("In Controller: {}",e);
@@ -53,7 +53,7 @@ public class ContactController {
         try{
             System.out.println("Generating for id: " + id);
             List<Contact> contacts = contactService.findContactsByOwnerId(id);
-            System.out.println(contacts.toArray());
+            log.info("Found the contacts for {} ",id);
                 return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
@@ -87,6 +87,8 @@ public class ContactController {
     public ResponseEntity<Contact> addFriendContact(@RequestBody Contact contact){
     try{
         System.out.println(contact.toString());
+
+        log.info("Added friends contact");
         return ResponseEntity.ok(contactService.saveFriendContact(contact));
 
 
@@ -103,6 +105,7 @@ public class ContactController {
         Long ownerId = body.get("owner_id");
         Long friendId = body.get("friend_id");
         Optional<Contact> contact = contactService.findByFriendAndOwner(ownerId, friendId);
+        log.info("Found owner and friend");
         return ResponseEntity.ok(contact);
     }
 
@@ -111,6 +114,7 @@ public class ContactController {
     public ResponseEntity<Contact> updateContact(@RequestBody Contact contact){
         try{
 
+            log.info("Updatating contact");
             return ResponseEntity.ok(contactService.updateContact(contact.getContact_id(), contact));
 
         }catch (Exception e){
@@ -125,6 +129,7 @@ public class ContactController {
         try{
 
             contactService.deleteContact(contact);
+            log.info("Contact got deleted");
             return ResponseEntity.ok("Deleted succesfully");
 
         }catch (Exception e){
@@ -140,6 +145,7 @@ public class ContactController {
     public ResponseEntity<List<Contact>> sortByFirstNameAsc(@PathVariable Long id){
         try{
             List<Contact> contacts = contactService.sortByFirstNameAsc(id);
+            log.info("Sorted contacts");
             return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
@@ -154,6 +160,8 @@ public class ContactController {
     public ResponseEntity<List<Contact>> sortByLastNameAsc(@PathVariable Long id){
         try{
             List<Contact> contacts = contactService.sortByLastNameAsc(id);
+
+            log.info("Sorted contacts");
             return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
@@ -167,6 +175,7 @@ public class ContactController {
     public ResponseEntity<List<Contact>> sortByTitleAsc(@PathVariable Long id){
         try{
             List<Contact> contacts = contactService.sortByTitleAsc(id);
+            log.info("Sorted contacts");
             return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
@@ -180,6 +189,7 @@ public class ContactController {
     public ResponseEntity<List<Contact>> sortByFirstNameDesc(@PathVariable Long id){
         try{
             List<Contact> contacts = contactService.sortByFirstNameDesc(id);
+            log.info("Sorted contacts");
             return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
@@ -192,6 +202,7 @@ public class ContactController {
     public ResponseEntity<List<Contact>> sortByLastNameDesc(@PathVariable Long id){
         try{
             List<Contact> contacts = contactService.sortByLastNameDesc(id);
+            log.info("Sorted contacts");
             return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
@@ -204,6 +215,7 @@ public class ContactController {
     public ResponseEntity<List<Contact>> sortByTitleDesc(@PathVariable Long id){
         try{
             List<Contact> contacts = contactService.sortByTitleDesc(id);
+            log.info("Sorted contacts");
             return ResponseEntity.ok(contacts);
         }catch (Exception e){
             log.error("Error fetching contacts for id {}: {}", id, e.getMessage());
